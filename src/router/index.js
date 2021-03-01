@@ -1,29 +1,106 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LightCourse from '../views/LightCourse.vue'
+import FreeCourse from '../views/FreeCourse.vue'
+import ActualCourse from '../views/ActualCourse.vue'
+import FreeCourseDetail from '../views/FreeCourseDetail.vue'
+import Search from '../views/Search.vue'
+import PaySuccess from '../views/PaySuccess.vue'
+
+
+import Account from '@/views/Account.vue'
+import MyOrder from '../views/order/MyOrder.vue'
+import AccountDetail from '@/views/order/AccountDetail.vue'
+import MyDetail from '@/views/order/MyDetail.vue'
+import ShopCart from '@/views/order/ShopCart'
+
+
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    {
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/free-course',
+        name: 'FreeCourse',
+        component: FreeCourse
+    }, {
+        path: '/light-course',
+        name: 'LightCourse',
+        component: LightCourse
+    }, {
+        path: '/actual-course',
+        name: 'ActualCourse',
+        component: ActualCourse
+    },{
+        path: '/free/detail/:pk',
+        name: 'FreeCourseDetail',
+        component: FreeCourseDetail
+    },{
+        path: '/search',
+        name: 'Search',
+        component: Search
+    },{
+        path: '/pay/success',
+        name: 'PaySuccess',
+        component: PaySuccess
+    },
+
+    {
+        path: '/myorder',
+        name: 'my_order',
+        component: MyOrder
+    },
+    {
+        path: '/order',
+        name: 'account',
+        component: Account,
+
+        // 设置二级路由
+        children: [
+            {
+                path: 'myorder',
+                component: MyOrder
+            },
+            {
+                path: 'myaccount',
+                component: AccountDetail
+            },
+            {
+                path: 'mydetail',
+                component: MyDetail
+            },
+            {
+                path: 'shopcart',
+                component: ShopCart
+            },
+
+            // 默认二级路由
+            {
+                path: '',
+                redirect: '/order/myorder'
+            }
+
+
+        ]
+    },
+
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
