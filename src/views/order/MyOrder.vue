@@ -1,20 +1,5 @@
 <template>
   <div class="box">
-    <!-- <el-menu
-      :default-active="activeIndex2"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="1">
-          <router-link to="/order/myaccount" tag="li" >我的订单</router-link>
-      </el-menu-item>
-      <el-menu-item index="2">我的账户</el-menu-item>
-      <el-menu-item index="3">个人资料</el-menu-item>
-      <el-menu-item index="4">购物车</el-menu-item>
-    </el-menu> -->
     <div class="order_info">
       <ul>
         <li class="col-md-6">订单信息</li>
@@ -34,7 +19,7 @@
       style="width: 100%">
         <!--订单信息-->
       <el-table-column
-        width="450">
+        width="420">
         <template slot-scope="scope">
           <div class="order_num">
             <p>{{scope.row.date}} 订单号：{{ scope.row.order_number }}</p>
@@ -51,7 +36,7 @@
       </el-table-column>
         <!--有效期-->
       <el-table-column
-        width="100">
+        width="150">
         <template slot-scope="scope">
           <div class="order_num" style="visibility: hidden;">
             <p>111</p>
@@ -67,8 +52,8 @@
           </div>
         </template>
       </el-table-column>
-        <!---->
-      <el-table-column  width="100">
+        <!--单价-->
+      <el-table-column  width="150">
         <template slot-scope="scope">
            <div class="order_num" style="visibility: hidden;">
             <p>111</p>
@@ -84,10 +69,10 @@
           </div>
         </template>
       </el-table-column>
-
+            <!-- 实付金额 -->
       <el-table-column
 
-        width="120">
+        width="150">
         <template slot-scope="scope">
           <div class="order_num" style="visibility: hidden;">
             <p>111</p>
@@ -104,7 +89,8 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column
+
+      <!-- <el-table-column
 
         width="110">
         <template slot-scope="scope">
@@ -122,6 +108,7 @@
           </div>
         </template>
       </el-table-column>
+
         <el-table-column
         width="100">
         <template slot-scope="scope">
@@ -133,11 +120,11 @@
             {{scope.row.actual_amount}}
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-
+      <!-- 交易状态 -->      
       <el-table-column
-         width="120"
+         width="150"
       >
        <template slot-scope="scope">
           <div class="order_num" style="visibility: hidden;">
@@ -152,8 +139,9 @@
           </div>
         </template>
       </el-table-column>
+      <!-- 交易操作 -->
       <el-table-column
-         width="100"
+         width="120"
       >
         <template slot-scope="scope">
           <div v-if="scope.row.status == '待支付'">
@@ -206,6 +194,8 @@
     display: flex;
     justify-content: center;
   }
+
+ 
   .order_num p{
     font-size:16px;
     font-weight: 200;

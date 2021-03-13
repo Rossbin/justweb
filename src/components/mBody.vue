@@ -12,7 +12,9 @@
                   </div>
                   <div class="media-body">
                     <h3>前端开发</h3>
-                    <p>时尚大气的HTML5开发，让您快速学会制作各式各样的网站界面。</p>
+                    <p>
+                      时尚大气的HTML5开发，让您快速学会制作各式各样的网站界面。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -36,7 +38,9 @@
                   </div>
                   <div class="media-body">
                     <h3>平面设计</h3>
-                    <p>涵盖优质专业的LOGO、名片、海报等设计课程，定制化设计学习。</p>
+                    <p>
+                      涵盖优质专业的LOGO、名片、海报等设计课程，定制化设计学习。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -164,7 +168,7 @@
             <div class="about-content">
               <h1 class="section-title">Just在线教育</h1>
               <p>Just-edu全称为江苏科技大学在线教育平台，成立于2021年！</p>
-              <a class="btn btn-default" href="#contact" role="button" 
+              <a class="btn btn-default" href="#contact" role="button"
                 >加入我们 <i class="lnr lnr-arrow-right"></i
               ></a>
             </div>
@@ -196,7 +200,28 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4" v-for="(item,index) in course_list" :key="index">
+            <div class="project-box">
+              <div class="project-img">
+                <a href="#"
+                  ><img
+                    :src="item.course_img"
+                    alt
+                    class="img-responsive"
+                /></a>
+              </div>
+              <div class="project-text " id="popularcourse-name">
+                <h3 style="margin-bottom:20px">{{ item.name }}</h3>
+                <h4 
+                  >讲师：{{ item.teacher.name }}</h4
+                >
+                <span >课程简介：{{ item.brief }}</span>
+              </div>
+            </div>
+          </div>
+            
+
+          <!-- <div class="col-md-4">
             <div class="project-box">
               <div class="project-img">
                 <a target="blank" href="/"
@@ -208,13 +233,14 @@
               </div>
               <div class="project-text">
                 <h3>Python全栈工程师</h3>
-                <a target="blank" href="http://www.justedu.com/">http://www.baidu.com</a>
+                <a target="blank" href="http://www.justedu.com/"
+                  >http://www.baidu.com</a
+                >
                 <p>本作品为本Just-edu独家课程</p>
               </div>
             </div>
-            
-          </div>
-          <div class="col-md-4">
+          </div> -->
+          <!-- <div class="col-md-4">
             <div class="project-box">
               <div class="project-img">
                 <a target="blank" href="/"
@@ -226,13 +252,14 @@
               </div>
               <div class="project-text">
                 <h3>Java全栈工程师</h3>
-                <a target="blank" href="http://www.justedu.com/">http://www.baidu.com</a>
+                <a target="blank" href="http://www.justedu.com/"
+                  >http://www.baidu.com</a
+                >
                 <p>本作品为本Just-edu独家课程</p>
               </div>
             </div>
-            
-          </div>
-          <div class="col-md-4">
+          </div> -->
+          <!-- <div class="col-md-4">
             <div class="project-box">
               <div class="project-img">
                 <a target="blank" href="/"
@@ -244,12 +271,13 @@
               </div>
               <div class="project-text">
                 <h3>Web大前端基础</h3>
-                <a target="blank" href="http://www.justedu.com/">http://www.baidu.com</a>
+                <a target="blank" href="http://www.justedu.com/"
+                  >http://www.baidu.com</a
+                >
                 <p>本作品为本Just-edu独家课程</p>
               </div>
             </div>
-            
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -260,12 +288,29 @@
           <div class="col-md-8 col-md-offset-2 text-center">
             <h1 class="section-title">
               优秀教师风采
-              <p class="section-para">我们拥有上千规模的教师团队，国家级优秀教师占80%</p>
+              <p class="section-para">
+                我们拥有上千规模的教师团队，国家级优秀教师占80%
+              </p>
             </h1>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-3" v-for="(item,index) in teacher_list" :key="index">
+            <div class="expert-box" >
+              <img :src="item.image" alt />
+              <div class="expert-overflow">
+                教师身份：{{ item.role_name }}<br />
+                联系方式：{{ item.email }}
+              </div>
+              <div class="name-plate text-center">
+                <h3 class="expert-name">{{ item.name }}</h3>
+                <font><i class="fa fa-user">{{ item.signature }}</i></font
+                ><br />
+                <font><i class="fa fa-map-marker">{{ item.title }}</i></font>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-3">
             <div class="expert-box">
               <img src="../assets/img/just.png" alt />
               <div class="expert-overflow">
@@ -280,6 +325,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-sm-3">
             <div class="expert-box">
               <img src="../assets/img/just.png" alt />
@@ -295,6 +341,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-sm-3">
             <div class="expert-box">
               <img src="../assets/img/just.png" alt />
@@ -327,8 +374,6 @@
             </div>
           </div>
 
-          <div class="col-sm-12"></div>
-
           <div class="col-sm-3">
             <div class="expert-box">
               <img src="../assets/img/just.png" alt />
@@ -343,7 +388,7 @@
                 <font><i class="fa fa-map-marker">陕西 - 西安</i></font>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -361,13 +406,12 @@
           </div>
         </div>
         <h5 align="center">
-          官方客服：316504849 <a
-            target="blank"
-            href="https://jq.qq.com/?_wv=1027&k=vF66ojJp"
+          官方客服：316504849
+          <a target="blank" href="https://jq.qq.com/?_wv=1027&k=vF66ojJp"
             >在线沟通</a
-          > 
+          >
         </h5>
-        
+
         <h5 align="center">
           我们的交流QQ群为：<a
             target="blank"
@@ -375,11 +419,8 @@
             >点击加入</a
           >
         </h5>
-        
-        <h5 align="center">
-          联系地址：江苏科技大学长山校区  
-        </h5>
-        
+
+        <h5 align="center">联系地址：江苏科技大学长山校区</h5>
       </div>
     </section>
   </div>
@@ -390,12 +431,38 @@
 export default {
   name: "mBody",
   data() {
-    return {};
+    return {
+      course_list: [],
+      teacher_list: [],
+    };
+  },
+  created() {
+    //当优秀讲师组件一创建，就向后台发请求，拿回优秀讲师数据
+    this.$axios
+      .get(this.$settings.base_url + "/course/teacher/good_teacher/")
+      .then((response) => {
+        console.log(response.data);
+        this.teacher_list = response.data;
+      })
+      .catch((error) => {});
+
+      this.$axios
+      .get(this.$settings.base_url + "/course/popular/")
+      .then((response) => {
+        console.log(response.data);
+        this.course_list = response.data;
+      })
+      .catch((error) => {});
   },
 };
 </script>
 
 <style scoped>
+#popularcourse-name{
+  font-weight:bold;
+  color:#496174;
+}
+
 p {
   font-size: 13.5px;
   line-height: 20px;
@@ -681,67 +748,64 @@ h3.expert-name {
 
 /* 联系我们样式 */
 .contact {
-    padding-top: 90px;
+  padding-top: 90px;
 }
 
 .contact .section-title {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .contact .border {
-    margin-bottom: 45px;
+  margin-bottom: 45px;
 }
 
 .contact .form-group {
-    margin-bottom: 22px;
+  margin-bottom: 22px;
 }
 
 .contact .form-control {
-    background-color: transparent;
-    background-image: none;
-    border-radius: 0;
-    box-shadow: none;
-    color: #555;
-    font-size: 13px;
-    height: 45px;
-    padding: 10px 15px;
-    width: 100%;
+  background-color: transparent;
+  background-image: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: #555;
+  font-size: 13px;
+  height: 45px;
+  padding: 10px 15px;
+  width: 100%;
 }
 
 .contact .btn {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .contact .textarea {
-    min-height: 178px;
-    width: 100%;
+  min-height: 178px;
+  width: 100%;
 }
-
 
 /* 优秀视频展示CSS */
 .work .single-work img {
-    width: 100%;
+  width: 100%;
 }
 
 .project-box {
-    box-shadow: 0px 0px 10px #9E9E9E;
-    margin: 20px 0 0 0;
-    min-height: 300px;
-    border-radius: 9px;
-    overflow: hidden;
+  box-shadow: 0px 0px 10px #9e9e9e;
+  margin: 20px 0 0 0;
+  min-height: 330px;
+  border-radius: 9px;
+  overflow: hidden;
 }
 
 .project-img {
-    border: #DADADA solid 1px;
+  border: #dadada solid 1px;
 }
 
 .project-text {
-    margin: 0px 10px 0px 10px
+  margin: 0px 10px 0px 10px;
 }
 
 .project-text a {
-    text-decoration: none;
+  text-decoration: none;
 }
-
-
 </style>
