@@ -22,12 +22,12 @@
                     </div>
                     <div class="buy">
                         <div class="buy-btn">
-                            <button class="buy-now" @click="buy_now(course)" >立即购买</button>
-                            <button class="free">免费试学</button>
+                            <button class="buy-now" @click="buy_now(course_info)" >立即购买</button>
+                            <!-- <button class="free">免费试学</button> -->
                         </div>
-                        <!--<div class="add-cart" @click="add_cart(course_info.id)">-->
-														<!--<img src="@/assets/img/cart-yellow.svg" alt="">加入购物车-->
-                        <!--</div>-->
+                        <div class="add-cart" @click="add_cart(course_info.id)">
+							<img src="@/assets/img/cart-yellow.svg" alt="">加入购物车
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                                         {{section.name}}<span class="free" v-if="section.free_trail">免费</span></p>
                                     <p class="time">{{section.duration}} <img src="@/assets/img/chapter-player.svg"></p>
                                     <button class="try" v-if="section.free_trail">立即试学</button>
-                                    <button class="try" v-else>立即购买</button>
+                                    <button class="try" v-else @click="buy_now(course_info)">立即购买</button>
                                 </li>
                             </ul>
                         </div>
@@ -174,37 +174,37 @@
                     window.console.log(error.response);
                 })
             },
-            // buy_now(course) {
-            //     let token = this.$cookies.get('token')      // let定义一个变量，取浏览器的cookies,token为登录后的标识
-            //     if (!token) {
-            //         this.$message({
-            //             message: "您还没有登录，请先登录",
-            //         })
-            //         return false
-            //     }
-            //     // 如果登录了，就开始发Ajax请求给后端
-            //     this.$axios({
-            //             method: 'post',
-            //             url: this.$settings.base_url + '/order/pay/',
-            //             data: {                     // 课程数据
-            //                 "total_amount": course.price,
-            //                 "subject": course.name,
-            //                 "pay_type": 1,
-            //                 "course": [
-            //                     course.id,
-            //                 ]
-            //             },
-            //             headers: {Authorization: 'jwt ' + token}    // 头部携带jwt+token登录后的信息
-            //         }
-            //     ).then(response => {
-            //         console.log(response.data)
-            //         let pay_url=response.data      // 将拿取到的响应支付宝跳转数据赋值给pay_url
-            //         //前端发送get请求
-            //         open(pay_url,'_self')   // _self在当前页面跳转支付
-            //     }).catch(error => {
-            //     })
+            buy_now(course_info) {
+                let token = this.$cookies.get('token')      // let定义一个变量，取浏览器的cookies,token为登录后的标识
+                if (!token) {
+                    this.$message({
+                        message: "您还没有登录，请先登录",
+                    })
+                    return false
+                }
+                // 如果登录了，就开始发Ajax请求给后端
+                this.$axios({
+                        method: 'post',
+                        url: this.$settings.base_url + '/order/pay/',
+                        data: {                     // 课程数据
+                            "total_amount": course_info.price,
+                            "subject": course_info.name,
+                            "pay_type": 1,
+                            "course": [
+                                course_info.id,
+                            ]
+                        },
+                        headers: {Authorization: 'jwt ' + token}    // 头部携带jwt+token登录后的信息
+                    }
+                ).then(response => {
+                    console.log(response.data)
+                    let pay_url=response.data      // 将拿取到的响应支付宝跳转数据赋值给pay_url
+                    //前端发送get请求
+                    open(pay_url,'_self')   // _self在当前页面跳转支付
+                }).catch(error => {
+                })
 
-            // },
+            },
         },
         components: {
             Header,
@@ -625,4 +625,11 @@
         color: #666;
         line-height: 24px;
     }
+
+    /* 购物车css */
+    .add-cart{
+        margin-right: 80px;
+    }
+
+    
 </style>

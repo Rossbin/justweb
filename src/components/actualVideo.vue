@@ -10,17 +10,44 @@
          <div class="row">
             <div class="col-lg-12 d-flex justify-content-center" >
               <ul id="portfolio-flters">
-                <li data-filter="*" class="filter-active">所有项目</li>
-                <li data-filter=".filter-app">Python项目</li>
+                <li data-filter="*" class="filter-active">最新企业使用的项目库</li>
+                <!-- <li data-filter=".filter-app" >Python项目</li>
                 <li data-filter=".filter-card">Java项目</li>
-                <li data-filter=".filter-web">实地工程类</li>
+                <li data-filter=".filter-web">Golang项目</li> -->
               </ul>
             </div>
           </div>
 
 
           <div class="row portfolio-container">
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+
+            <div class="col-lg-4 col-md-6 portfolio-item " v-for="(item,index) in item_list" :key="index">
+              <img :src="item.course_img" class="img-fluid" alt="" />
+              <div class="portfolio-info">
+                <h4>{{ item.name }}</h4>
+                <p>{{ item.brief }}</p>
+                <a
+                  href="#"
+                  
+                  class=" preview-link"
+                  title="watch"
+                  ><i class="fa fa-search-plus" aria-hidden="true"></i
+                ></a>
+                <a
+                  href="#"
+                  
+                  data-vbtype="iframe"
+                  class=" details-link"
+                  title="Portfolio Details"
+                  ><i class="fa fa-link" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+
+
+
+
+            <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <img src="../assets/img/Loginbg.jpg" class="img-fluid" alt="" />
               <div class="portfolio-info">
                 <h4>App 1</h4>
@@ -133,9 +160,9 @@
                   ><i class="fa fa-link" aria-hidden="true"></i
                 ></a>
               </div>
-            </div>
+            </div> -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <img src="../assets/img/Loginbg.jpg" class="img-fluid" alt="" />
               <div class="portfolio-info">
                 <h4>App 3</h4>
@@ -317,7 +344,8 @@
                   ><i class="fa fa-link" aria-hidden="true"></i
                 ></a>
               </div>
-            </div>
+            </div> -->
+
           </div>
 
       </div>
@@ -330,8 +358,18 @@ export default {
   name: "actualVideo",
   data() {
     return {
-
+        item_list: [],
     };
+  },
+  created() {
+    //当项目组件一创建，就向后台发请求，拿回项目数据
+      this.$axios
+      .get(this.$settings.base_url + "/course/project/item_course/")
+      .then((response) => {
+        console.log(response.data);
+        this.item_list = response.data;
+      })
+      .catch((error) => {});
   },
 };
 </script>

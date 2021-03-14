@@ -447,7 +447,7 @@ export default {
       .catch((error) => {});
 
       this.$axios
-      .get(this.$settings.base_url + "/course/popular/")
+      .get(this.$settings.base_url + "/course/popular/popular_course/")
       .then((response) => {
         console.log(response.data);
         this.course_list = response.data;
