@@ -441,7 +441,7 @@ export default {
     this.$axios
       .get(this.$settings.base_url + "/course/teacher/good_teacher/")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.teacher_list = response.data;
       })
       .catch((error) => {});
@@ -449,7 +449,7 @@ export default {
       this.$axios
       .get(this.$settings.base_url + "/course/popular/popular_course/")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.course_list = response.data;
       })
       .catch((error) => {});

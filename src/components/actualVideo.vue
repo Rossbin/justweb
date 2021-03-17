@@ -366,7 +366,7 @@ export default {
       this.$axios
       .get(this.$settings.base_url + "/course/project/item_course/")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.item_list = response.data;
       })
       .catch((error) => {});

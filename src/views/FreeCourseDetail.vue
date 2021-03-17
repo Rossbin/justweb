@@ -4,6 +4,7 @@
         <div class="main">
             <div class="course-info">
 <!--                 视频黑框尺寸，已经写死了-->
+
                 <div class="wrap-left">
                     <videoPlayer class="video-player vjs-custom-skin"
                                  ref="videoPlayer"
@@ -58,6 +59,8 @@
                                     <p class="name"><span class="index">{{chapter.chapter}}-{{section.orders}}</span>
                                         {{section.name}}<span class="free" v-if="section.free_trail">免费</span></p>
                                     <p class="time">{{section.duration}} <img src="@/assets/img/chapter-player.svg"></p>
+                                    <p>{{ course_video }}</p>
+                                    
                                     <button class="try" v-if="section.free_trail">立即试学</button>
                                     <button class="try" v-else @click="buy_now(course_info)">立即购买</button>
                                 </li>
@@ -111,12 +114,15 @@
                 }, // 课程信息
                 course_chapters: [], // 课程的章节课时列表
                 playerOptions: {
-                     playbackRates: [0.7, 1.0, 1.5, 5.0], //播放速度
+                    playbackRates: [0.7, 1.0, 1.5, 5.0], //播放速度
                     aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
                     sources: [{ // 播放资源和资源格式
                         type: "video/mp4",
-                        src: "http://just.fxy.plus/%E5%88%AB%E5%86%8D%E6%B5%AA%E8%B4%B9%E4%BD%A0%E7%9A%84%E6%97%B6%E9%97%B4.mp4" //你的视频地址（必填）
+                        src: '', //视频地址（必填）
                     }],
+                    //封面
+                    poster: '',
+                    notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
                 }
             }
         },
@@ -124,8 +130,24 @@
             this.get_course_id();
             this.get_course_data();
             this.get_chapter();
+           
         },
         methods: {
+            playUrl: function(){
+                this.$axios.get(`${this.$settings.base_url}/course/free/${this.course_id}/`).then(response => {
+                    // window.console.log(response.data);
+                    this.playerOptions['sources'][0]['src'] = response.data.attachment_path;
+                    this.playerOptions['poster'] = response.data.course_img
+                }).catch(() => {
+                    this.$message({
+                        message: "对不起，访问页面出错！请联系客服工作人员！"
+                    });
+                })
+                
+            },
+            // getplayUrl() {
+            //     this.playerOptions['sources'][0]['src'] = this.course_video;                
+            // },
             onPlayerPlay() {
                 // 当视频播放时，执行的方法
                 console.log('视频开始播放')
@@ -162,6 +184,7 @@
             },
 
             get_chapter() {
+                
                 // 获取当前课程对应的章节课时信息
                 // http://127.0.0.1:8000/course/chapters/?course=(pk)
                 this.$axios.get(`${this.$settings.base_url}/course/chapters/`, {
@@ -210,7 +233,12 @@
             Header,
             Footer,
             videoPlayer, // 注册组件
+        },
+        mounted(){
+             this.playUrl();
         }
+       
+        
     }
 </script>
 

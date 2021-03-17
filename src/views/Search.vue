@@ -1,11 +1,11 @@
 <template>
     <div class="search-course course">
         <Header/>
-        <h1>总共搜索到 {{course_total}}课程</h1>
+        <h1 style="color:#496174; margin-left: 50px; margin-top: 30px; border-bottom:2px solid #496174; padding: 40px">总共搜索到 {{course_total}}课程：</h1>
         <!-- 课程列表 -->
         <div class="main">
             <div v-if="course_list.length > 0" class="course-list">
-                <div class="course-item" v-for="course in course_list" :key="course.name">
+                <div class="course-item" v-for="course in course_list" :key="course.id">
                     <div class="course-image">
                         <img :src="course.course_img" alt="">
                     </div>
