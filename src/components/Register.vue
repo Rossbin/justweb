@@ -216,7 +216,8 @@
     .nav {
         font-size: 20px;
         height: 38px;
-        border-bottom: 2px solid darkgrey;
+        border-bottom: 2px solid #e9e9e9;
+        font-family: Helvetica Neue,Helvetica,Microsoft YaHei,Arial,sans-serif;
     }
 
     .nav > span {
@@ -226,12 +227,13 @@
         cursor: pointer;
         padding-bottom: 10px;
         border-bottom: 2px solid darkgrey;
+        
     }
 
     .nav > span.active {
-        color: black;
-        border-bottom: 3px solid black;
-        padding-bottom: 9px;
+        color: #ffc210;
+        border-bottom: 2px solid#ffc210;
+        padding-bottom: 11px;
     }
 
     .el-input, .el-button {

@@ -3,7 +3,7 @@
     <div class="order_info">
       <ul>
         <li class="col-md-6">订单信息</li>
-        <li class="col-md-1">有效期</li>
+        <li class="col-md-1">购买日期</li>
         <!-- <li>优惠</li> -->
         <li class="col-md-1">单价 (元)</li>
         <!-- <li>抵扣</li> -->

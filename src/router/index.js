@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import LightCourse from '../views/LightCourse.vue'
+import AboutUs from '../views/AboutUs.vue'
 import FreeCourse from '../views/FreeCourse.vue'
 import ActualCourse from '../views/ActualCourse.vue'
 import FreeCourseDetail from '../views/FreeCourseDetail.vue'
@@ -35,9 +35,9 @@ const routes = [
         name: 'FreeCourse',
         component: FreeCourse
     }, {
-        path: '/light-course',
-        name: 'LightCourse',
-        component: LightCourse
+        path: '/about-us',
+        name: 'about-us',
+        component: AboutUs
     }, {
         path: '/actual-course',
         name: 'ActualCourse',

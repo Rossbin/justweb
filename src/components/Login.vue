@@ -220,7 +220,7 @@
 
     .box {
         width: 400px;
-        height: 420px;
+        height: 400px;
         background-color: white;
         border-radius: 10px;
         position: relative;
@@ -249,9 +249,9 @@
     }
 
     .nav {
-        font-size: 20px;
+        font-size: 19px;
         height: 38px;
-        border-bottom: 2px solid darkgrey;
+        border-bottom: 2px solid #e9e9e9;
     }
 
     .nav > span {
@@ -259,18 +259,19 @@
         color: darkgrey;
         user-select: none;
         cursor: pointer;
-        padding-bottom: 10px;
-        border-bottom: 2px solid darkgrey;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e9e9e9;
     }
 
     .nav > span.active {
-        color: black;
-        border-bottom: 3px solid black;
-        padding-bottom: 9px;
+        color: #ffc210;
+        border-bottom: 2px solid #ffc210;
+        padding-bottom: 12px;
     }
 
     .el-input, .el-button {
         margin-top: 40px;
+
     }
 
     .el-button {
@@ -292,5 +293,6 @@
         width: 70px;
         text-align: center;
         user-select: none;
+        
     }
 </style>

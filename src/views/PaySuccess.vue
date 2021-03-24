@@ -15,7 +15,7 @@
                 <p class="info"><b>付款时间：</b><span><span>{{ result.timestamp }}</span></span></p>
             </div>
             <div class="study">
-                <span>立即学习</span>
+                <span @click="goToL">立即学习</span>
             </div>
         </div>
     </div>
@@ -29,8 +29,15 @@
         data() {
             return {
                 result: {},
+
             };
         },
+         methods: {
+            goToL() {
+                this.$emit('close')
+            },
+         },
+
         created() {
             // url后拼接的参数：?及后面的所有参数 => ?a=1&b=2
             console.log(location.search);
@@ -145,9 +152,16 @@
         text-align: center;
         line-height: 42px;
         cursor: pointer;
-        background: #ffc210;
+        background: #fdfdfd;
         border-radius: 6px;
         font-size: 16px;
-        color: #fff;
+        color: rgb(250, 11, 11);
+        border: 1px solid red;
+    }
+
+    .study span:hover  {
+        color: #fdfdfc;
+        background: #ffc210;
+        border: 1px solid #ffc210;
     }
 </style>

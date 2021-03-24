@@ -199,27 +199,43 @@
           </div>
         </div>
 
+        <!-- 过滤器 -->
         <div class="row">
-          <div class="col-md-4" v-for="(item,index) in course_list" :key="index">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <div class="col-md-10 col-md-offset-1">
+                <li
+                  v-for="(cell, index) in cells"
+                  :key="index"
+                  v-bind:class="{ 'filter-active': cell.selected }"
+                  v-on:click="choose(index)"
+                >
+                  Python项目
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="col-md-4"
+            v-for="(item, index) in course_list"
+            :key="index"
+          >
             <div class="project-box">
               <div class="project-img">
                 <a href="#"
-                  ><img
-                    :src="item.course_img"
-                    alt
-                    class="img-responsive"
+                  ><img :src="item.course_img" alt class="img-responsive"
                 /></a>
               </div>
-              <div class="project-text " id="popularcourse-name">
-                <h3 style="margin-bottom:20px">{{ item.name }}</h3>
-                <h4 
-                  >讲师：{{ item.teacher.name }}</h4
-                >
-                <span >课程简介：{{ item.brief }}</span>
+              <div class="project-text" id="popularcourse-name">
+                <h3 style="margin-bottom: 20px">{{ item.name }}</h3>
+                <h4>讲师：{{ item.teacher.name }}</h4>
+                <span>课程简介：{{ item.brief }}</span>
               </div>
             </div>
           </div>
-            
 
           <!-- <div class="col-md-4">
             <div class="project-box">
@@ -294,9 +310,32 @@
             </h1>
           </div>
         </div>
+
+        <!-- 过滤器 -->
         <div class="row">
-          <div class="col-sm-3" v-for="(item,index) in teacher_list" :key="index">
-            <div class="expert-box" >
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <div class="col-md-10 col-md-offset-1">
+                <li
+                  v-for="(teachers, index) in teacherss"
+                  :key="index"
+                  v-bind:class="{ 'filter-active': teachers.selected }"
+                  v-on:click="choose_tea(index)"
+                >
+                  Python项目
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="col-sm-3"
+            v-for="(item, index) in teacher_list"
+            :key="index"
+          >
+            <div class="expert-box">
               <img :src="item.image" alt />
               <div class="expert-overflow">
                 教师身份：{{ item.role_name }}<br />
@@ -304,9 +343,12 @@
               </div>
               <div class="name-plate text-center">
                 <h3 class="expert-name">{{ item.name }}</h3>
-                <font><i class="fa fa-user">{{ item.signature }}</i></font
+                <font
+                  ><i class="fa fa-user">{{ item.signature }}</i></font
                 ><br />
-                <font><i class="fa fa-map-marker">{{ item.title }}</i></font>
+                <font
+                  ><i class="fa fa-map-marker">{{ item.title }}</i></font
+                >
               </div>
             </div>
           </div>
@@ -434,7 +476,54 @@ export default {
     return {
       course_list: [],
       teacher_list: [],
+      cells: [
+        { num: "1", selected: true },
+        { num: "2", selected: false },
+        { num: "3", selected: false },
+        { num: "4", selected: false },
+        { num: "5", selected: false },
+        { num: "6", selected: false },
+        { num: "7", selected: false },
+        { num: "8", selected: false },
+        { num: "9", selected: false },
+        { num: "10", selected: false },
+        { num: "11", selected: false },
+        { num: "12", selected: false },
+        { num: "13", selected: false },
+      ],
+      teacherss: [
+        { num: "1", selected: true },
+        { num: "2", selected: false },
+        { num: "3", selected: false },
+        { num: "4", selected: false },
+        { num: "5", selected: false },
+        { num: "6", selected: false },
+        { num: "7", selected: false },
+        { num: "8", selected: false },
+        { num: "9", selected: false },
+        { num: "10", selected: false },
+        { num: "11", selected: false },
+        { num: "12", selected: false },
+        { num: "13", selected: false },
+      ],
     };
+  },
+
+  methods: {
+    choose: function (index) {
+      this.cells.forEach(function (c) {
+        c.selected = false;
+      });
+      this.cells[index].selected = true;
+      // console.log(this.cells[index].selected);
+    },
+    choose_tea: function (index) {
+      this.teacherss.forEach(function (c) {
+        c.selected = false;
+      });
+      this.teacherss[index].selected = true;
+      // console.log(this.cells[index].selected);
+    },
   },
   created() {
     //当优秀讲师组件一创建，就向后台发请求，拿回优秀讲师数据
@@ -446,7 +535,7 @@ export default {
       })
       .catch((error) => {});
 
-      this.$axios
+    this.$axios
       .get(this.$settings.base_url + "/course/popular/popular_course/")
       .then((response) => {
         // console.log(response.data);
@@ -458,9 +547,9 @@ export default {
 </script>
 
 <style scoped>
-#popularcourse-name{
-  font-weight:bold;
-  color:#496174;
+#popularcourse-name {
+  font-weight: bold;
+  color: #496174;
 }
 
 p {
@@ -573,7 +662,7 @@ h3.expert-name {
   color: #999;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 80px;
+  margin-bottom: 15px;
   padding-top: 25px;
 }
 
@@ -808,4 +897,41 @@ h3.expert-name {
 .project-text a {
   text-decoration: none;
 }
+
+#portfolio-flters {
+  padding: 0;
+  margin: 0 auto 25px auto;
+  list-style: none;
+  text-align: center;
+  border-radius: 50px;
+}
+
+#portfolio-flters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 18px 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #444444;
+  margin: 0 3px 10px 3px;
+  transition: all ease-in-out 0.3s;
+  background: #fafafc;
+  border-radius: 50px;
+}
+
+#portfolio-flters li:hover,
+#portfolio-flters li.filter-active {
+  color: #414c64;
+  background: #ffc107;
+}
+
+.portfolio #portfolio-flters li:last-child {
+  margin-right: 0;
+}
+
+
+
+
+
 </style>

@@ -59,7 +59,7 @@
                                     <p class="name"><span class="index">{{chapter.chapter}}-{{section.orders}}</span>
                                         {{section.name}}<span class="free" v-if="section.free_trail">免费</span></p>
                                     <p class="time">{{section.duration}} <img src="@/assets/img/chapter-player.svg"></p>
-                                    <p>{{ course_video }}</p>
+                                   
                                     
                                     <button class="try" v-if="section.free_trail">立即试学</button>
                                     <button class="try" v-else @click="buy_now(course_info)">立即购买</button>
@@ -130,6 +130,8 @@
             this.get_course_id();
             this.get_course_data();
             this.get_chapter();
+            // 课程视频加载
+            // this.playUrl();
            
         },
         methods: {
@@ -145,9 +147,7 @@
                 })
                 
             },
-            // getplayUrl() {
-            //     this.playerOptions['sources'][0]['src'] = this.course_video;                
-            // },
+            
             onPlayerPlay() {
                 // 当视频播放时，执行的方法
                 console.log('视频开始播放')
@@ -234,6 +234,8 @@
             Footer,
             videoPlayer, // 注册组件
         },
+
+        // 页面渲染完成后自动挂载
         mounted(){
              this.playUrl();
         }

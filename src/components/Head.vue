@@ -20,19 +20,19 @@
                     <span @click="goPage('/actual-course')" :class="{active: url_path === '/actual-course'}">项目实战课</span>
                 </li>
                 <li class="ele">
-                    <span @click="goPage('/light-course')" :class="{active: url_path === '/light-course'}">关于我们</span>
+                    <span @click="goPage('/about-us')" :class="{active: url_path === '/about-us'}">关于我们</span>
                 </li>
             </ul>
 
             <div class="right-part">
                 <div v-if="!username">
-                    <span @click="put_login">登录</span>
-                    <span class="line">|</span>
+                    <span @click="put_login" >登录</span>
+                    <!-- <span class="line">|</span> -->
                     <span @click="put_register">注册</span>
                 </div>
                 <div v-else>
                     <span @click="goPage('/order')" :class="{active: url_path === '/order'}">{{username}}</span>
-                    <span class="line">|</span>
+                    <!-- <span class="line">|</span> -->
                     <span @click="logout">注销</span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <span @click="search_action('C++')">C++</span>
                 </div>
                 <input type="text" :placeholder="search_placeholder" @focus="on_search" @blur="off_search"
-                       v-model="search_word">
+                        v-model="search_word" v-on:keyup.enter="search_action(search_word)">
                 <button type="button" class="glyphicon glyphicon-search" @click="search_action(search_word)"></button>
             </form>
 
@@ -70,7 +70,7 @@
                 //搜索相关数据
                 is_search_tip: true,
                 search_placeholder: '',
-                search_word: ''
+                search_word: '',
             }
         },
         methods: {
@@ -108,13 +108,15 @@
                 this.username = ''
                 this.token = ''
             },
+           
+
             search_action(search_word) {
                 if (!search_word) {
                     this.$message('请输入要搜索的内容');
                     return
                 }
-                //this.$route.params  从路径中取值
-                //this.$route.query   从？后面的取
+                // this.$route.params  //从路径中取值
+                // this.$route.query   //从？后面的取
                 // if (search_word !== this.$route.query.word) {
                 //     this.$router.push(`/search?word=${search_word}`);
                 // }
@@ -124,6 +126,7 @@
             on_search() {
                 this.search_placeholder = '请输入想搜索的课程';
                 this.is_search_tip = false;
+
             },
             off_search() {
                 this.search_placeholder = '';
@@ -237,10 +240,23 @@
     }
 
     .right-part span {
+        
         line-height: 71px;
         cursor: pointer;
+        border: 1px solid #ffc210;
+        color: #ffc210;
+        margin-right: 14px;
+        margin-left: 5px;
+        border-radius: 4px;
+
+        padding: 9px 23px;
 
     }
+    
+   .right-part span:hover {
+       border: 1px solid #c91a1a;
+       color: #c91919;
+   }
 
     .search {
         float: right;

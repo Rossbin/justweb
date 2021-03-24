@@ -9,11 +9,11 @@
 
          <div class="row">
             <div class="col-lg-12 d-flex justify-content-center" >
-              <ul id="portfolio-flters">
-                <li data-filter="*" class="filter-active">最新企业使用的项目库</li>
-                <!-- <li data-filter=".filter-app" >Python项目</li>
-                <li data-filter=".filter-card">Java项目</li>
-                <li data-filter=".filter-web">Golang项目</li> -->
+              <ul id="portfolio-flters" >
+                <li v-for="(cell,index) in cells" :key="index"  v-bind:class= "{'filter-active': cell.selected}" v-on:click = "choose(index)"  >Python项目</li>
+                <!-- <li data-filter="*" class="filter-active " :class="{'filter-active': isShow1}" @click="choose()">最新企业使用的项目库</li>
+                <li data-filter=".filter-card" @click="choose()" >Java项目</li>
+                <li data-filter=".filter-web" @click="choose()" >Golang项目</li> -->
               </ul>
             </div>
           </div>
@@ -358,8 +358,23 @@ export default {
   name: "actualVideo",
   data() {
     return {
+        cells:[
+            {num:'1',selected:true},
+            {num:'2',selected:false},
+            {num:'3',selected:false},
+            {num:'4',selected:false},
+            {num:'5',selected:false}
+        ],
         item_list: [],
     };
+  },
+  methods: {
+    choose:function (index) {
+      this.cells.forEach(function(c){
+        c.selected = false;})
+      this.cells[index].selected=true;
+      // console.log(this.cells[index].selected);
+    }
   },
   created() {
     //当项目组件一创建，就向后台发请求，拿回项目数据
@@ -450,6 +465,7 @@ section {
 }
 
 
+
 .portfolio .portfolio-item {
   margin-bottom: 30px;
   overflow: hidden;
@@ -519,5 +535,10 @@ section {
   max-width: 100%;
   height: auto;
 }
+
+
+
+
+
 
 </style>
