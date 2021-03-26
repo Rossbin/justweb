@@ -31,7 +31,8 @@
                     <span @click="put_register">注册</span>
                 </div>
                 <div v-else>
-                    <span @click="goPage('/order')" :class="{active: url_path === '/order'}">{{username}}</span>
+                    <span class="icon" @click="goPage('/order')" :class="{active: url_path === '/order'}"> <img :src= icon alt=""></span>
+                    <span class="icon" @click="goPage('/order')" :class="{active: url_path === '/order'}">{{username}}</span>
                     <!-- <span class="line">|</span> -->
                     <span @click="logout">注销</span>
                 </div>
@@ -67,6 +68,7 @@
                 is_register: false,
                 token: '',
                 username: '',
+                icon:'',
                 //搜索相关数据
                 is_search_tip: true,
                 search_placeholder: '',
@@ -97,6 +99,7 @@
             },
             login_success() {
                 this.username = this.$cookies.get('username')
+                this.icon = this.$settings.base_url + this.$cookies.get('icon')
                 this.token = this.$cookies.get('token')
             },
             // 注销函数事件
@@ -104,8 +107,10 @@
                 //清除cookie
                 this.$cookies.remove('token')
                 this.$cookies.remove('username')
+                this.$cookies.remove('icon')
                 //把两个变量值为空
                 this.username = ''
+                this.icon = ''
                 this.token = ''
             },
            
@@ -139,6 +144,7 @@
 
             //当页面一创建，我就去cookie中取token和username
             this.username = this.$cookies.get('username')   //取到就有值，取不到就为空
+            this.icon = this.$settings.base_url + this.$cookies.get('icon')
             this.token = this.$cookies.get('token')   //取到就有值，取不到就为空
         },
         components: {
@@ -252,6 +258,27 @@
         padding: 9px 23px;
 
     }
+
+     .right-part .icon {
+         padding: 0px;
+         border: 0px;
+         font-weight: bold;
+
+     }   
+
+    .right-part .icon:hover{
+        border: 0px;
+
+    }
+     .icon img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 40px;
+        height: auto;
+        margin-right: -9px;
+        border-radius: 20px;
+        border: 1px solid #ffc210;
+     }
     
    .right-part span:hover {
        border: 1px solid #c91a1a;

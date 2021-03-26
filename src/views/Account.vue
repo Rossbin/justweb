@@ -6,21 +6,19 @@
         :default-active="activeIndex2"
         class="el-menu-demo"
         mode="horizontal"
-        @select="handleSelect"
+      
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
       >
+        <!-- @select="handleSelect" -->
         <el-menu-item index="1">
           <router-link to="/order/myorder" tag="li">我的订单</router-link>
         </el-menu-item>
         <el-menu-item index="2">
-            <router-link to="/order/myaccount" tag="li">我的账户</router-link>
-        </el-menu-item>
-        <el-menu-item index="3">
             <router-link to="/order/mydetail" tag="li">个人资料</router-link>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="3">
             <router-link to="/order/shopcart" tag="li">购物车</router-link>
         </el-menu-item>
       </el-menu>

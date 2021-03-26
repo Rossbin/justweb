@@ -11,7 +11,7 @@ import PaySuccess from '../views/PaySuccess.vue'
 
 import Account from '@/views/Account.vue'
 import MyOrder from '../views/order/MyOrder.vue'
-import AccountDetail from '@/views/order/AccountDetail.vue'
+
 import MyDetail from '@/views/order/MyDetail.vue'
 import ShopCart from '@/views/order/ShopCart'
 
@@ -72,10 +72,7 @@ const routes = [
                 path: 'myorder',
                 component: MyOrder
             },
-            {
-                path: 'myaccount',
-                component: AccountDetail
-            },
+
             {
                 path: 'mydetail',
                 component: MyDetail

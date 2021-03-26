@@ -159,6 +159,8 @@
                         // this.$cookies.set('key','value','过期时间,按s计'),在main中已经导入了
                         this.$cookies.set('token', response.data.token, '7d')  // 过期时间为7天
                         this.$cookies.set('username', response.data.username, '7d')
+                        this.$cookies.set('icon', response.data.icon, '7d')
+                        this.$cookies.set('id', response.data.id, '7d')
                         //关闭登录窗口(子传父)
                         this.$emit('close')
                         //给父组件，Head传递一个事件，让它从cookie中取出token和username
@@ -188,6 +190,8 @@
                         // this.$cookies.set('key','value','过期时间,按s计')
                         this.$cookies.set('token', response.data.token, '7d')
                         this.$cookies.set('username', response.data.username, '7d')
+                        this.$cookies.set('icon', response.data.icon, '7d')
+                        this.$cookies.set('id', response.data.id, '7d')
                         //关闭登录窗口(子传父)
                         this.$emit('close')
                         //给父组件，Head传递一个事件，让它从cookie中取出token和username

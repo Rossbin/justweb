@@ -188,6 +188,8 @@ export default {
 <style lang="css" scoped>
 .shopping-cart-wrap{
 	width: 100%;
+	background: #f9f9f9;
+  	align-items: center;
 }
 .shopping-cart-wrap h3,.row{
 	width: 1200px;
@@ -221,10 +223,13 @@ select {
 }
 .total{
 	width: 1200px;
+	height: 150px;
 	margin: 0 auto;
-	margin-bottom: 150px;
+	/* margin-bottom: 150px; */
 	/*display: flex;*/
 	/*justify-content:flex-end;*/
+	background: #f9f9f9;
+  	align-items: center;
 
 }
 .shopping-cart-wrap .total button{
