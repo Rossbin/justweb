@@ -27,7 +27,7 @@
         created() {
             //当banner组件一创建，就向后台发请求，拿回轮播图数据
             this.$axios.get(this.$settings.base_url + '/home/banner/').then(response => {
-                console.log(response.data)
+                console.log("banner",response.data)
                 this.banner_list=response.data
             }).catch(error => {
             })

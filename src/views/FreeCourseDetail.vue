@@ -24,11 +24,11 @@
                     <div class="buy">
                         <div class="buy-btn">
                             <button class="buy-now" @click="buy_now(course_info)" >立即购买</button>
-                            <!-- <button class="free">免费试学</button> -->
+                            <button class="free">点赞</button>
                         </div>
-                        <div class="add-cart" @click="add_cart(course_info.id)">
-							<img src="@/assets/img/cart-yellow.svg" alt="">加入购物车
-                        </div>
+                        <!-- <div class="add-cart" @click="add_cart(course_info.id)"> -->
+							<!-- <img src="@/assets/img/cart-yellow.svg" alt="">加入购物车 -->
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -263,6 +263,10 @@
         width: 690px;
         height: 388px;
         background-color: #000;
+        border: 1px solid #F40;
+        border-radius: 8px !important;
+        overflow: hidden;
+        
     }
 
     .wrap-right {

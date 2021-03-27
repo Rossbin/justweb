@@ -24,13 +24,17 @@
             </div>
           </div>
         </li>
-        <li class="col-md-2 ">{{ item.updated_time }}</li>
-        <li class="col-md-1 ">{{ item.order_courses[0].price }}</li>
-        <li class="col-md-1"> {{ item.order_courses[0].real_price }}</li>
+        <li class="col-md-2">{{ item.updated_time }}</li>
+        <li class="col-md-1">{{ item.order_courses[0].price }}</li>
+        <li class="col-md-1">{{ item.order_courses[0].real_price }}</li>
         <li class="col-md-1">{{ item.order_status }}</li>
         <li class="col-md-1">
           <div class="study">
-            <span @click="goToL">立即学习</span>
+            <router-link
+              :to="'/plays/' + item.order_courses[0].course.id"
+              style="text-decoration: none"
+              ><span>立即学习</span></router-link
+            >
           </div>
         </li>
       </ul>
@@ -53,13 +57,19 @@ export default {
     this.token = this.$cookies.get("token");
     this.id = this.$cookies.get("id");
     //当项目组件一创建，就向后台发请求，拿回项目数据
-    this.$axios
-      .get(this.$settings.base_url + "/order/buys/" + this.id + "/")
+    this.$axios({
+      method: "get",
+      url: this.$settings.base_url + "/order/buys/" + this.id + "/",
+      data: {},
+      headers: { Authorization: "jwt " + this.token }, // 头部携带jwt+token登录后的信息
+    })
       .then((response) => {
         console.log(response.data.data);
         this.myOrderList = response.data.data;
       })
       .catch((error) => {});
+
+
   },
 
   methods: {},
@@ -164,7 +174,6 @@ export default {
 }
 
 .study {
-
   padding-top: 60px;
   margin-left: -12px;
 }
@@ -181,7 +190,6 @@ export default {
   font-size: 15.5px;
   color: rgb(250, 11, 11);
   border: 1px solid red;
-  
 }
 
 .study span:hover {

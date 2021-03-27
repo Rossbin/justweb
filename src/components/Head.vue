@@ -14,7 +14,7 @@
                     <span @click="goPage('/home')" :class="{active: url_path === '/home'} ">本站首页</span>
                 </li>
                 <li class="ele">
-                    <span @click="goPage('/free-course')" :class="{active: url_path === '/free-course'}">基础理论课</span>
+                    <span @click="goPage('/base-course')" :class="{active: url_path === '/base-course'}">基础理论课</span>
                 </li>
                 <li class="ele">
                     <span @click="goPage('/actual-course')" :class="{active: url_path === '/actual-course'}">项目实战课</span>
@@ -108,6 +108,7 @@
                 this.$cookies.remove('token')
                 this.$cookies.remove('username')
                 this.$cookies.remove('icon')
+                this.$cookies.remove('id')
                 //把两个变量值为空
                 this.username = ''
                 this.icon = ''

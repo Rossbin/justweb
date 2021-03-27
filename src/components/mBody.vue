@@ -205,12 +205,12 @@
             <ul id="portfolio-flters">
               <div class="col-md-10 col-md-offset-1">
                 <li
-                  v-for="(cell, index) in cells"
+                  v-for="(cell, index) in category_list"
                   :key="index"
-                  v-bind:class="{ 'filter-active': cell.selected }"
+                  v-bind:class="{ 'filter-active': cell.button }"
                   v-on:click="choose(index)"
                 >
-                  Python项目
+                  {{ cell.name }}
                 </li>
               </div>
             </ul>
@@ -317,12 +317,12 @@
             <ul id="portfolio-flters">
               <div class="col-md-10 col-md-offset-1">
                 <li
-                  v-for="(teachers, index) in teacherss"
+                  v-for="(teachers, index) in introduceteacher_list"
                   :key="index"
-                  v-bind:class="{ 'filter-active': teachers.selected }"
+                  v-bind:class="{ 'filter-active': teachers.button }"
                   v-on:click="choose_tea(index)"
                 >
-                  Python项目
+                  {{ teachers.name }}
                 </li>
               </div>
             </ul>
@@ -476,56 +476,60 @@ export default {
     return {
       course_list: [],
       teacher_list: [],
-      cells: [
-        { num: "1", selected: true },
-        { num: "2", selected: false },
-        { num: "3", selected: false },
-        { num: "4", selected: false },
-        { num: "5", selected: false },
-        { num: "6", selected: false },
-        { num: "7", selected: false },
-        { num: "8", selected: false },
-        { num: "9", selected: false },
-        { num: "10", selected: false },
-        { num: "11", selected: false },
-        { num: "12", selected: false },
-        { num: "13", selected: false },
-      ],
-      teacherss: [
-        { num: "1", selected: true },
-        { num: "2", selected: false },
-        { num: "3", selected: false },
-        { num: "4", selected: false },
-        { num: "5", selected: false },
-        { num: "6", selected: false },
-        { num: "7", selected: false },
-        { num: "8", selected: false },
-        { num: "9", selected: false },
-        { num: "10", selected: false },
-        { num: "11", selected: false },
-        { num: "12", selected: false },
-        { num: "13", selected: false },
-      ],
+      category_list: [],
+      introduceteacher_list: [],
     };
   },
 
   methods: {
     choose: function (index) {
-      this.cells.forEach(function (c) {
-        c.selected = false;
+      this.category_list.forEach(function (c) {
+        c.button = false;
       });
-      this.cells[index].selected = true;
+      this.category_list[index].button = true;
       // console.log(this.cells[index].selected);
     },
     choose_tea: function (index) {
-      this.teacherss.forEach(function (c) {
-        c.selected = false;
+      this.introduceteacher_list.forEach(function (c) {
+        c.button = false;
       });
-      this.teacherss[index].selected = true;
+      this.introduceteacher_list[index].button = true;
       // console.log(this.cells[index].selected);
+    },
+
+    get_category() {
+      // 获取课程分类信息
+      this.$axios
+        .get(`${this.$settings.base_url}/course/categories/`)
+        .then((response) => {
+          console.log("课程分类",response.data);
+          this.category_list = response.data;
+          this.introduceteacher_list = response.data;
+        })
+        .catch(() => {
+          this.$message({
+            message: "获取课程分类信息有误，请联系客服工作人员",
+          });
+        });
+    },
+    get_introduceteacher() {
+      // 获取课程分类信息
+      this.$axios
+        .get(`${this.$settings.base_url}/course/categories/`)
+        .then((response) => {
+          console.log("老师推荐分类",response.data);
+          this.introduceteacher_list = response.data;
+        })
+        .catch(() => {
+          this.$message({
+            message: "获取课程分类信息有误，请联系客服工作人员",
+          });
+        });
     },
   },
   created() {
+    this.get_category();
+    this.get_introduceteacher();
     //当优秀讲师组件一创建，就向后台发请求，拿回优秀讲师数据
     this.$axios
       .get(this.$settings.base_url + "/course/teacher/good_teacher/")
@@ -929,9 +933,4 @@ h3.expert-name {
 .portfolio #portfolio-flters li:last-child {
   margin-right: 0;
 }
-
-
-
-
-
 </style>

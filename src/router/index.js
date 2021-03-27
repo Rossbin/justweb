@@ -7,6 +7,7 @@ import ActualCourse from '../views/ActualCourse.vue'
 import FreeCourseDetail from '../views/FreeCourseDetail.vue'
 import Search from '../views/Search.vue'
 import PaySuccess from '../views/PaySuccess.vue'
+import Play from '../views/Play.vue'
 
 
 import Account from '@/views/Account.vue'
@@ -22,7 +23,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        
         component: Home
     },
     {
@@ -31,7 +32,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/free-course',
+        path: '/base-course',
         name: 'FreeCourse',
         component: FreeCourse
     }, {
@@ -55,6 +56,11 @@ const routes = [
         name: 'PaySuccess',
         component: PaySuccess
     },
+    {
+        path: '/plays/:pk',
+        name: 'Play',
+        component: Play
+    },
 
     {
         path: '/myorder',
@@ -63,7 +69,7 @@ const routes = [
     },
     {
         path: '/order',
-        name: 'account',
+        
         component: Account,
 
         // 设置二级路由
