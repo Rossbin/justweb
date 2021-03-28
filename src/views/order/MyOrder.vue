@@ -38,7 +38,20 @@
           </div>
         </li>
       </ul>
-      <ul class="row last-row"></ul>
+      <ul class="row last-row">
+        <li>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="filter.page"
+            :page-sizes="[2, 3, 5, 10]"
+            :page-size="filter.page_size"
+            layout="sizes, prev, pager, next"
+            :total="course_total"
+          >
+          </el-pagination>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -51,28 +64,77 @@ export default {
       id: "1",
       url: this.$settings.base_url,
       myOrderList: [],
+      filter: {
+        page_size: 2, // 单页数据量
+        page: 1,
+      },
+      course_total: 0,   // 当前课程的总数量
     };
   },
   created() {
     this.token = this.$cookies.get("token");
     this.id = this.$cookies.get("id");
     //当项目组件一创建，就向后台发请求，拿回项目数据
-    this.$axios({
-      method: "get",
-      url: this.$settings.base_url + "/order/buys/" + this.id + "/",
-      data: {},
-      headers: { Authorization: "jwt " + this.token }, // 头部携带jwt+token登录后的信息
-    })
-      .then((response) => {
-        console.log(response.data.data);
-        this.myOrderList = response.data.data;
-      })
-      .catch((error) => {});
-
-
+    this.get_course();
   },
 
-  methods: {},
+  watch: {
+    "filter.page_size": function () {
+      this.get_course();
+    },
+    "filter.page": function () {
+      this.get_course();
+    },
+  },
+
+  methods: {
+    handleSizeChange(val) {
+      // 每页数据量发生变化时执行的方法
+      this.filter.page = 1;
+      this.filter.page_size = val;
+    },
+    handleCurrentChange(val) {
+      // 页码发生变化时执行的方法
+      this.filter.page = val;
+    },
+
+    get_course() {
+      let filters = {
+        ordering: this.filter.ordering, // 排序
+      };
+      // 设置单页数据量
+      if (this.filter.page_size > 0) {
+        filters.page_size = this.filter.page_size;
+      } else {
+        filters.page_size = 5;
+      }
+
+      // 设置当前页码
+      if (this.filter.page > 1) {
+        filters.page = this.filter.page;
+      } else {
+        filters.page = 1;
+      }
+
+      this.$axios({
+        params: filters,
+        method: "get",
+        url: this.$settings.base_url + "/order/buys/" + this.id + "/",
+        data: {},
+        headers: { Authorization: "jwt " + this.token }, // 头部携带jwt+token登录后的信息
+      })
+        .then((response) => {
+          // console.log(response.data.data);
+          this.myOrderList = response.data.data;
+          this.course_total = response.data.count;
+        })
+        .catch((error) => {
+          this.$message({
+            message: "获取课程信息有误，请联系客服工作人员",
+          });
+        });
+    },
+  },
 };
 </script>
 
@@ -171,6 +233,7 @@ export default {
 
 .last-row {
   margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .study {

@@ -16,7 +16,18 @@
 
       <!-- <div class="play-box" style="height: 765px"> -->
       <div class="play-box" :style="autoHeight">
+        <div v-if="srcvideo === ''" style="text-align:center; line-height: 388px; font-size: 80px">
+          <el-button 
+            type="info"
+            icon="el-icon-loading"
+            circle
+            @click="playUrl()"
+          >
+          </el-button>
+          
+        </div>
         <videoPlayer
+          v-else
           class="video-player vjs-custom-skin"
           ref="videoPlayer"
           :playsinline="true"
@@ -111,8 +122,10 @@ import { videoPlayer } from "vue-video-player";
 let windowHeight = parseInt(window.innerHeight);
 export default {
   name: "Play",
+
   data() {
     return {
+      srcvideo: "", //视频地址
       show: "",
       showIconLeft: false,
       showIconRight: true,
@@ -134,7 +147,7 @@ export default {
           {
             // 播放资源和资源格式
             type: "video/mp4",
-            src: "", //视频地址（必填）
+            src: this.srcvideo, //视频地址（必填）
           },
         ],
         //封面
@@ -164,6 +177,7 @@ export default {
   // 因为当守卫执行前，组件实例还没被创建
 
   created() {
+    this.playerOptions.sources[0].src = this.src;
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
 
@@ -176,6 +190,7 @@ export default {
       //打开视频
       console.log(this.sectionss);
       this.playerOptions["sources"][0]["src"] = this.src;
+      this.srcvideo = this.src;
     },
 
     // 播放video自适应高度
@@ -195,14 +210,14 @@ export default {
         this.showIconRight = false;
       }
     },
-    playUrl: function () {
+    playUrl: function() {
       this.$axios
         .get(`${this.$settings.base_url}/course/free/${this.course_id}/`)
         .then((response) => {
           // window.console.log(response.data);
-          this.playerOptions["sources"][0]["src"] =
-            response.data.attachment_path;
+          this.playerOptions["sources"][0]["src"] = response.data.attachment_path
           this.playerOptions["poster"] = response.data.course_img;
+          this.srcvideo = true;
         })
         .catch(() => {
           this.$message({

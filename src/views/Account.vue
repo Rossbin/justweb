@@ -48,6 +48,7 @@ export default {
       if (!vm.$cookies.get("token")) {
         vm.$message({
           message: "您还没有登录，请先登录",
+
         });
         next("/home");
       } else {
