@@ -209,6 +209,10 @@
                   :key="index"
                   v-bind:class="{ 'filter-active': cell.button }"
                   v-on:click="choose(index)"
+                  @click="
+                    (filter.course_category = cell.id),
+                      filter.ordering == '-popular'
+                  "
                 >
                   {{ cell.name }}
                 </li>
@@ -217,7 +221,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div
             class="col-md-4"
             v-for="(item, index) in course_list"
@@ -225,9 +229,11 @@
           >
             <div class="project-box">
               <div class="project-img">
-                <a href="#"
+                <router-link
+                  :to="'/base-course/detail/' + item.id"
+                  style="text-decoration: none"
                   ><img :src="item.course_img" alt class="img-responsive"
-                /></a>
+                /></router-link>
               </div>
               <div class="project-text" id="popularcourse-name">
                 <h3 style="margin-bottom: 20px">{{ item.name }}</h3>
@@ -236,69 +242,35 @@
               </div>
             </div>
           </div>
+        </div> -->
+      </div>
 
-          <!-- <div class="col-md-4">
-            <div class="project-box">
+      <div class="row" style="margin-top:20px;">
+        <div class="col-md-8 col-md-offset-2">
+        <el-carousel :interval="4000" type="card" height="550px">
+          <el-carousel-item v-for="(item, index) in course_list" :key="index">
+            <div class="col-md-12 project-box2">
               <div class="project-img">
-                <a target="blank" href="/"
-                  ><img
-                    src="../assets/img/Loginbg.jpg"
-                    alt
-                    class="img-responsive"
-                /></a>
+                <router-link
+                  :to="'/base-course/detail/' + item.id"
+                  style="text-decoration: none"
+                  ><img :src="item.course_img" alt class="img-responsive"
+                /></router-link>
               </div>
-              <div class="project-text">
-                <h3>Python全栈工程师</h3>
-                <a target="blank" href="http://www.justedu.com/"
-                  >http://www.baidu.com</a
-                >
-                <p>本作品为本Just-edu独家课程</p>
+              <div class="project-text" id="popularcourse-name">
+                <h3 style="margin-bottom: 20px">{{ item.name }}</h3>
+                <h4>讲师：{{ item.teacher.name }}</h4>
+                <span>课程简介：{{ item.brief }}</span>
               </div>
             </div>
-          </div> -->
-          <!-- <div class="col-md-4">
-            <div class="project-box">
-              <div class="project-img">
-                <a target="blank" href="/"
-                  ><img
-                    src="../assets/img/Loginbg.jpg"
-                    alt
-                    class="img-responsive"
-                /></a>
-              </div>
-              <div class="project-text">
-                <h3>Java全栈工程师</h3>
-                <a target="blank" href="http://www.justedu.com/"
-                  >http://www.baidu.com</a
-                >
-                <p>本作品为本Just-edu独家课程</p>
-              </div>
-            </div>
-          </div> -->
-          <!-- <div class="col-md-4">
-            <div class="project-box">
-              <div class="project-img">
-                <a target="blank" href="/"
-                  ><img
-                    src="../assets/img/Loginbg.jpg"
-                    alt
-                    class="img-responsive"
-                /></a>
-              </div>
-              <div class="project-text">
-                <h3>Web大前端基础</h3>
-                <a target="blank" href="http://www.justedu.com/"
-                  >http://www.baidu.com</a
-                >
-                <p>本作品为本Just-edu独家课程</p>
-              </div>
-            </div>
-          </div> -->
+          </el-carousel-item>
+        </el-carousel>          
         </div>
+
       </div>
     </section>
 
-    <section id="team" class="our-experts">
+    <!-- <section id="team" class="our-experts">
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 text-center">
@@ -308,24 +280,6 @@
                 我们拥有上千规模的教师团队，国家级优秀教师占80%
               </p>
             </h1>
-          </div>
-        </div>
-
-        <!-- 过滤器 -->
-        <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <div class="col-md-10 col-md-offset-1">
-                <li
-                  v-for="(teachers, index) in introduceteacher_list"
-                  :key="index"
-                  v-bind:class="{ 'filter-active': teachers.button }"
-                  v-on:click="choose_tea(index)"
-                >
-                  {{ teachers.name }}
-                </li>
-              </div>
-            </ul>
           </div>
         </div>
 
@@ -352,88 +306,9 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-sm-3">
-            <div class="expert-box">
-              <img src="../assets/img/just.png" alt />
-              <div class="expert-overflow">
-                QQ 123456<br />
-                Email asasvip@qq.com
-              </div>
-              <div class="name-plate text-center">
-                <h3 class="expert-name">十一</h3>
-                <font><i class="fa fa-user">创始人</i></font
-                ><br />
-                <font><i class="fa fa-map-marker">浙江 - 杭州</i></font>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-3">
-            <div class="expert-box">
-              <img src="../assets/img/just.png" alt />
-              <div class="expert-overflow">
-                QQ 123456<br />
-                Email support@hf30.top
-              </div>
-              <div class="name-plate text-center">
-                <h3 class="expert-name">柴犬展颜</h3>
-                <font><i class="fa fa-user">全栈开发</i></font
-                ><br />
-                <font><i class="fa fa-map-marker">江西 - 南昌</i></font>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-3">
-            <div class="expert-box">
-              <img src="../assets/img/just.png" alt />
-              <div class="expert-overflow">
-                QQ 123456<br />
-                Email 123456@qq.com
-              </div>
-              <div class="name-plate text-center">
-                <h3 class="expert-name">dawen</h3>
-                <font><i class="fa fa-user">销售经理</i></font
-                ><br />
-                <font><i class="fa fa-map-marker">广东 - 茂名</i></font>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-3">
-            <div class="expert-box">
-              <img src="../assets/img/just.png" alt />
-              <div class="expert-overflow">
-                QQ <br />
-                Email @qq.com
-              </div>
-              <div class="name-plate text-center">
-                <h3 class="expert-name">陈晓旭</h3>
-                <font><i class="fa fa-user">WEB前端</i></font
-                ><br />
-                <font><i class="fa fa-map-marker">浙江 - 杭州</i></font>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-3">
-            <div class="expert-box">
-              <img src="../assets/img/just.png" alt />
-              <div class="expert-overflow">
-                QQ <br />
-                Email @qq.com
-              </div>
-              <div class="name-plate text-center">
-                <h3 class="expert-name">差不多先生</h3>
-                <font><i class="fa fa-user">安全维护</i></font
-                ><br />
-                <font><i class="fa fa-map-marker">陕西 - 西安</i></font>
-              </div>
-            </div>
-          </div> -->
-        </div>
+       </div>
       </div>
-    </section>
+    </section> -->
 
     <section id="contact" class="contact">
       <div class="container">
@@ -475,10 +350,22 @@ export default {
   data() {
     return {
       course_list: [],
-      teacher_list: [],
       category_list: [],
-      introduceteacher_list: [],
+      filter: {
+        course_category: 0, // 当前用户选择的课程分类，刚进入页面默认为全部，值为0
+        ordering: "id", // 数据的排序方式，默认值是-id，表示对于id进行降序排列
+      },
     };
+  },
+
+  watch: {
+    //当你监听的数据发生变化，就会执行函数
+    "filter.course_category": function () {
+      this.get_course();
+    },
+    "filter.ordering": function () {
+      this.get_course();
+    },
   },
 
   methods: {
@@ -489,22 +376,14 @@ export default {
       this.category_list[index].button = true;
       // console.log(this.cells[index].selected);
     },
-    choose_tea: function (index) {
-      this.introduceteacher_list.forEach(function (c) {
-        c.button = false;
-      });
-      this.introduceteacher_list[index].button = true;
-      // console.log(this.cells[index].selected);
-    },
 
     get_category() {
       // 获取课程分类信息
       this.$axios
         .get(`${this.$settings.base_url}/course/categories/`)
         .then((response) => {
-          console.log("课程分类",response.data);
+          console.log("课程分类", response.data);
           this.category_list = response.data;
-          this.introduceteacher_list = response.data;
         })
         .catch(() => {
           this.$message({
@@ -512,40 +391,37 @@ export default {
           });
         });
     },
-    get_introduceteacher() {
-      // 获取课程分类信息
+
+    get_course() {
+      // 排序
+      let filters = {
+        ordering: this.filter.ordering, // 排序
+      };
+      // 判决是否进行分类课程的展示
+      if (this.filter.course_category > 0) {
+        filters.course_category = this.filter.course_category;
+      }
+
+      // 获取课程列表信息
       this.$axios
-        .get(`${this.$settings.base_url}/course/categories/`)
+        .get(`${this.$settings.base_url}/course/popular/`, {
+          params: filters,
+        })
         .then((response) => {
-          console.log("老师推荐分类",response.data);
-          this.introduceteacher_list = response.data;
+          // console.log(response.data);
+          this.course_list = response.data;
+          console.log("返回的课程", this.course_list);
         })
         .catch(() => {
           this.$message({
-            message: "获取课程分类信息有误，请联系客服工作人员",
+            message: "获取课程信息有误，请联系客服工作人员",
           });
         });
     },
   },
   created() {
+    this.get_course();
     this.get_category();
-    this.get_introduceteacher();
-    //当优秀讲师组件一创建，就向后台发请求，拿回优秀讲师数据
-    this.$axios
-      .get(this.$settings.base_url + "/course/teacher/good_teacher/")
-      .then((response) => {
-        // console.log(response.data);
-        this.teacher_list = response.data;
-      })
-      .catch((error) => {});
-
-    this.$axios
-      .get(this.$settings.base_url + "/course/popular/popular_course/")
-      .then((response) => {
-        // console.log(response.data);
-        this.course_list = response.data;
-      })
-      .catch((error) => {});
   },
 };
 </script>
@@ -842,6 +718,7 @@ h3.expert-name {
 /* 联系我们样式 */
 .contact {
   padding-top: 90px;
+  background-color: #f6f6f6;
 }
 
 .contact .section-title {
@@ -932,5 +809,28 @@ h3.expert-name {
 
 .portfolio #portfolio-flters li:last-child {
   margin-right: 0;
+}
+
+.project-box2 {
+  box-shadow: 0px 0px 20px #9e9e9e;
+  margin: 0px;
+  min-height: 330px;
+  border-radius: 9px;
+  overflow: hidden;
+  border-radius: 8px;
+  padding: 0px;
+  padding-bottom: 30px;
+}
+
+.img-responsive {
+  border-radius: 8px;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #fefeff;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #ffffff;
 }
 </style>

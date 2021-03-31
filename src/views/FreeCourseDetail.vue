@@ -62,7 +62,7 @@
             详情介绍
           </li>
           <li :class="tabIndex == 2 ? 'active' : ''" @click="tabIndex = 2">
-            课程章节 <span :class="tabIndex != 2 ? 'free' : ''">(试学)</span>
+            课程章节 <span :class="tabIndex != 2 ? 'free' : ''"></span>
           </li>
           <li :class="tabIndex == 3 ? 'active' : ''" @click="tabIndex = 3">
             用户评论

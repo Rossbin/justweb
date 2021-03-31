@@ -30,6 +30,7 @@
           v-else
           class="video-player vjs-custom-skin"
           ref="videoPlayer"
+          v-bind:class="{'video-hight':show_hight}"
           :playsinline="true"
           :options="playerOptions"
           @play="onPlayerPlay($event)"
@@ -125,8 +126,9 @@ export default {
 
   data() {
     return {
+      show_hight: false,    // 网页全屏的播放样式
       srcvideo: "", //视频地址
-      show: "",
+      show: "",     // 侧边栏是否显示，display:none为不显示
       showIconLeft: false,
       showIconRight: true,
       windowHeight: windowHeight,
@@ -195,7 +197,7 @@ export default {
 
     // 播放video自适应高度
     getHeight() {
-      this.autoHeight.height = windowHeight - 110 + "px";
+      this.autoHeight.height = windowHeight + 0  + "px";
     },
 
     close() {
@@ -204,10 +206,12 @@ export default {
         this.show = "";
         this.showIconRight = true;
         this.showIconLeft = false;
+        this.show_hight = false;
       } else {
         this.show = "none";
         this.showIconLeft = true;
         this.showIconRight = false;
+        this.show_hight = true;
       }
     },
     playUrl: function() {
@@ -528,5 +532,11 @@ li {
 
 .style {
   display: none;
+}
+
+
+.video-hight{
+  padding-right: 60px;
+  padding-left: 60px;
 }
 </style>

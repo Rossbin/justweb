@@ -44,7 +44,7 @@ const routes = [
         name: 'ActualCourse',
         component: ActualCourse
     },{
-        path: '/free/detail/:pk',
+        path: '/base-course/detail/:pk',
         name: 'FreeCourseDetail',
         component: FreeCourseDetail
     },{
