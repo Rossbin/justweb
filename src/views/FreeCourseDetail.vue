@@ -6,7 +6,10 @@
         <!--                 视频黑框尺寸，已经写死了-->
 
         <div class="wrap-left">
-          <div v-if="srcvideo === ''" style="text-align:center; line-height: 388px; font-size: 80px">
+          <div
+            v-if="srcvideo === ''"
+            style="text-align: center; line-height: 388px; font-size: 80px"
+          >
             <el-button
               type="info"
               icon="el-icon-loading"
@@ -48,7 +51,14 @@
               <button class="buy-now" @click="buy_now(course_info)">
                 立即购买
               </button>
-              <button class="free">点赞</button>
+              <el-button
+                type="success"
+                class="praise"
+                circle
+                :class="{ praise_model: praiseShow }"
+                @click="praiseUpdate()"
+                ><i class="fa fa-heart" aria-hidden="true"></i
+              ></el-button>
             </div>
             <!-- <div class="add-cart" @click="add_cart(course_info.id)"> -->
             <!-- <img src="@/assets/img/cart-yellow.svg" alt="">加入购物车 -->
@@ -64,18 +74,31 @@
           <li :class="tabIndex == 2 ? 'active' : ''" @click="tabIndex = 2">
             课程章节 <span :class="tabIndex != 2 ? 'free' : ''"></span>
           </li>
-          <li :class="tabIndex == 3 ? 'active' : ''" @click="tabIndex = 3">
+          <li :class="tabIndex == 3 ? 'active' : ''" @click="get_comment()">
             用户评论
           </li>
-          <li :class="tabIndex == 4 ? 'active' : ''" @click="tabIndex = 4">
+          <!-- <li :class="tabIndex == 4 ? 'active' : ''" @click="tabIndex = 4">
             常见问题
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="course-content">
         <div class="course-tab-list">
           <div class="tab-item" v-if="tabIndex == 1">
-            <div class="course-brief" v-html="course_info.brief_text"></div>
+            <div class="tab-item-title">
+              <p class="chapter">详情介绍</p>
+            </div>
+            <div
+              class="chapter-item"
+              style="
+                height: 400px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                overflow-y: auto;
+              "
+            >
+              <div class="course-brief" v-html="course_info.brief_text"></div>
+            </div>
           </div>
           <div class="tab-item" v-if="tabIndex == 2">
             <div class="tab-item-title">
@@ -86,44 +109,136 @@
               </p>
             </div>
             <div
-              class="chapter-item"
-              v-for="chapter in course_chapters"
-              :key="chapter.name"
+              style="
+                height: 400px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                overflow-y: auto;
+              "
             >
-              <p class="chapter-title">
-                <img src="@/assets/img/enum.svg" alt="" />第{{
-                  chapter.chapter
-                }}章·{{ chapter.name }}
-              </p>
-              <ul class="section-list">
-                <li
-                  class="section-item"
-                  v-for="section in chapter.coursesections"
-                  :key="section.name"
-                >
-                  <p class="name">
-                    <span class="index"
-                      >{{ chapter.chapter }}-{{ section.orders }}</span
-                    >
-                    {{ section.name
-                    }}<span class="free" v-if="section.free_trail">免费</span>
-                  </p>
-                  <p class="time">
-                    {{ section.duration }}
-                    <img src="@/assets/img/chapter-player.svg" />
-                  </p>
+              <div
+                class="chapter-item"
+                v-for="chapter in course_chapters"
+                :key="chapter.name"
+              >
+                <p class="chapter-title">
+                  <img src="@/assets/img/enum.svg" alt="" />第{{
+                    chapter.chapter
+                  }}章·{{ chapter.name }}
+                </p>
+                <ul class="section-list">
+                  <li
+                    class="section-item"
+                    v-for="section in chapter.coursesections"
+                    :key="section.name"
+                  >
+                    <p class="name">
+                      <span class="index"
+                        >{{ chapter.chapter }}-{{ section.orders }}</span
+                      >
+                      {{ section.name
+                      }}<span class="free" v-if="section.free_trail">免费</span>
+                    </p>
+                    <p class="time">
+                      {{ section.duration }}
+                      <img src="@/assets/img/chapter-player.svg" />
+                    </p>
 
-                  <button class="try" v-if="section.free_trail">
-                    立即试学
-                  </button>
-                  <button class="try" v-else @click="buy_now(course_info)">
-                    立即购买
-                  </button>
-                </li>
-              </ul>
+                    <button class="try" v-if="section.free_trail">
+                      立即试学
+                    </button>
+                    <button class="try" v-else @click="buy_now(course_info)">
+                      立即购买
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="tab-item" v-if="tabIndex == 3">用户评论</div>
+          <div class="tab-item" v-if="tabIndex == 3">
+            <div class="tab-item-title">
+              <p class="chapter">用户评论</p>
+            </div>
+            <div
+              class="chapter-item"
+              style="
+                height: 400px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                overflow-y: auto;
+              "
+            >
+              <el-row
+                :gutter="20"
+                style="margin-bottom: 20px"
+                v-for="(item, index) in comment_port"
+                :key="index"
+              >
+                <el-col :span="20" :offset="2">
+                  <el-card
+                    class="box-card"
+                    shadow="hover"
+                    style="color: #66686b"
+                  >
+                    <div slot="header" class="clearfix">
+                      <el-col :span="2">
+                        <div class="demo-basic--circle">
+                          <div class="block">
+                            <el-avatar
+                              :size="50"
+                              :src="$settings.base_url + '/media/' + item.icon"
+                            ></el-avatar>
+                          </div>
+                        </div>
+                      </el-col>
+                      <el-col :span="6" :offset="1" style="">
+                        <span>{{ item.first_name }}</span>
+                        <div class="row">
+                          <span
+                            class="col-md-8"
+                            style="display: block; padding-top: 6px"
+                            >{{ item.updated_time }}</span
+                          >
+                        </div>
+                      </el-col>
+                    </div>
+                    <div class="text item">
+                      {{ item.comment }}
+                    </div>
+                  </el-card>
+                </el-col>
+              </el-row>
+            </div>
+            <div>
+              <el-row :gutter="20">
+                <el-col :span="6" :offset="2" style="margin-top: 20px"
+                  ><p class="chapter">评论内容</p></el-col
+                >
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="20" :offset="2">
+                  <el-input
+                    type="textarea"
+                    placeholder="请输入内容"
+                    v-model="textarea"
+                    maxlength="60"
+                    show-word-limit
+                  >
+                  </el-input>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="6" :offset="2">
+                  <el-button
+                    type="primary"
+                    style="margin-top: 10px"
+                    @click="comment_put()"
+                    >发表评论</el-button
+                  >
+                </el-col>
+              </el-row>
+            </div>
+          </div>
           <div class="tab-item" v-if="tabIndex == 4">常见问题</div>
         </div>
         <div class="course-side">
@@ -163,6 +278,16 @@ export default {
   name: "Detail",
   data() {
     return {
+      // 点赞功能实现
+      praise: false,
+      // 点赞模块绑定样式
+      praiseShow: false,
+      // 用户id
+      id: 0,
+      // 评论接口获取
+      comment_port: [],
+      // 评论数据
+      textarea: "",
       srcvideo: "",
       tabIndex: 2, // 当前选项卡显示的下标
       course_id: 0, // 当前课程信息的ID
@@ -187,6 +312,7 @@ export default {
     };
   },
   created() {
+    this.id = this.$cookies.get("id");
     this.get_course_id();
     this.get_course_data();
     this.get_chapter();
@@ -208,6 +334,29 @@ export default {
           this.$message({
             message: "对不起，访问页面出错！请联系客服工作人员！",
           });
+        });
+    },
+
+    // 点赞功能初始获取数据
+    praiseGet: function () {
+      this.$axios({
+        method: "post",
+        url: `${this.$settings.base_url}/user/praise/`,
+        data: {
+          course: this.course_id,
+          user: this.id,
+        },
+      })
+        .then((response) => {
+          if (response.data.code == 1) {
+            // console.log(response.data);
+            this.praiseShow = response.data.data.praise;
+          } else {
+            this.praiseShow = false;
+          }
+        })
+        .catch((error) => {
+          // window.console.log(error.response);
         });
     },
 
@@ -294,6 +443,123 @@ export default {
         })
         .catch((error) => {});
     },
+
+    // 获取评论
+    get_comment() {
+      // http://127.0.0.1:8000/user/comment/
+      this.tabIndex = 3;
+      let formData = new FormData();
+      formData.append("course", this.course_id);
+      this.$axios({
+        method: "post",
+        url: `${this.$settings.base_url}/user/comment/`,
+        data: formData,
+      })
+        .then((response) => {
+          if (response.data.code == "1") {
+            // console.log(response.data);
+            this.comment_port = response.data.data;
+          } else {
+            this.$message({
+              message: "该课程暂时还没有人评论哦！ 赶紧来占1楼吧",
+            });
+          }
+        })
+        .catch((error) => {});
+    },
+
+    // 发表评论
+    comment_put() {
+      if (this.id) {
+      } else {
+        this.id = "0";
+      }
+      let formData = new FormData();
+      formData.append("course", this.course_id);
+      formData.append("user", this.id);
+      formData.append("comment", this.textarea);
+      // 加载
+      const loading = this.$loading({
+        lock: true,
+        text: "正在向后端努力的提交信息。。。",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      setTimeout(() => {
+        loading.close();
+      }, 3000);
+      this.$axios({
+        method: "patch",
+        url: `${this.$settings.base_url}/user/comment/`,
+        data: formData,
+      })
+        .then((response) => {
+          if (response.data.code == 1) {
+            console.log("修改后返回的", response);
+            var that = this;
+            setTimeout(function () {
+              that.$notify({
+                title: "成功",
+                message: "发表成功，请刷新后查看",
+                type: "success",
+              });
+            }, 3000);
+          } else {
+            this.$message({
+              message: "抱歉，请先购买课程再评论！",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+
+    // 点赞功能更新
+    praiseUpdate() {
+      let token = this.$cookies.get("token"); // let定义一个变量，取浏览器的cookies,token为登录后的标识
+      if (!token) {
+        this.userShow = true;
+        this.$message({
+          message: "您还没有登录，请先登录",
+        });
+        return false;
+      }
+      this.praise = !this.praiseShow;
+      // console.log(this.praise);
+      const loading = this.$loading({
+        lock: true,
+        text: "正在向后端努力的提交信息。。。",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      setTimeout(() => {
+        loading.close();
+      }, 1000);
+      this.$axios({
+        method: "patch",
+        url: `${this.$settings.base_url}/user/praise/`,
+        data: {
+          course: this.course_id,
+          user: this.id,
+          praise: this.praise,
+        },
+      })
+        .then((response) => {
+          if (response.data.code == 1) {
+            console.log(response.data);
+            this.praiseShow = response.data.data.praise;
+          } else {
+            this.praiseShow = false;
+            this.$message({
+              message: "请购买该课程后再操作！",
+            });
+          }
+        })
+        .catch((error) => {
+          // window.console.log(error.response);
+        });
+    },
   },
   components: {
     Header,
@@ -304,6 +570,7 @@ export default {
   // 页面渲染完成后自动挂载
   mounted() {
     this.playUrl();
+    this.praiseGet();
   },
 };
 </script>
@@ -721,5 +988,23 @@ export default {
 /* 购物车css */
 .add-cart {
   margin-right: 80px;
+}
+
+.praise {
+  font-size: 40px;
+  margin-left: 45px;
+  color: #fafafa;
+}
+
+.praise:hover {
+  background-color: rgb(253, 249, 249);
+  border: 1px solid rgb(250, 247, 247);
+  color: rgb(226, 32, 32);
+}
+
+.praise_model {
+  background-color: rgb(253, 249, 249);
+  border: 1px solid rgb(250, 247, 247);
+  color: rgb(226, 32, 32);
 }
 </style>

@@ -32,6 +32,11 @@ Vue.use(ElementUI);
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+//animate.css配置
+import animate from 'animate.css';
+import 'animate.css/animate.min.css'
+Vue.use(animate);
+
 
 
 // vue-video播放器
