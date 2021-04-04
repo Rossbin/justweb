@@ -22,23 +22,66 @@
     <div class="main">
       <!-- 筛选条件 -->
       <div class="condition">
-        <ul class="cate-list">
-          <li class="title">课程分类:</li>
-          <li
-            :class="filter.course_category == 0 ? 'this' : ''"
-            @click="filter.course_category = 0"
-          >
-            全部
-          </li>
-          <li
-            :class="filter.course_category == category.id ? 'this' : ''"
-            v-for="category in category_list"
-            @click="filter.course_category = category.id"
-            :key="category.name"
-          >
-            {{ category.name }}
-          </li>
-        </ul>
+        <!-- 总目录 -->
+        <div class="cate-list">
+          <el-row :gutter="20">
+            <el-col :span="3" class="col-3">
+              <span class="title">学习方向:</span>
+            </el-col>
+            <el-col :span="20" style="padding-left: 0px">
+              <ul>
+                <li
+                  :class="filter.general_category == 0 ? 'this' : ''"
+                  @click="filter.general_category = 0"
+                >
+                  全部
+                </li>
+                <li
+                  :class="filter.general_category == category.id ? 'this' : ''"
+                  v-for="category in general_category_list"
+                  @click="filter.general_category = category.id"
+                  :key="category.id"
+                >
+                  {{ category.name }}
+                </li>
+              </ul>
+            </el-col>
+          </el-row>
+        </div>
+
+        <!-- 课程分类 -->
+        <div
+          :class="{
+            'cate-list': overflowfirst,
+            cate_list_hidden: overflowlast,
+          }"
+          @mouseenter="enter()"
+          @mouseleave="leave()"
+        >
+          <el-row :gutter="20">
+            <el-col :span="3" class="col-3">
+              <span class="title">课程分类:</span>
+            </el-col>
+            <el-col :span="20" style="padding-left: 0px">
+              <ul>
+                <li
+                  :class="filter.course_category == 0 ? 'this' : ''"
+                  @click="filter.course_category = 0"
+                >
+                  不限
+                </li>
+                <li
+                  :class="filter.course_category == category.id ? 'this' : ''"
+                  v-for="category in category_list"
+                  @click="filter.course_category = category.id"
+                  :key="category.name"
+                >
+                  {{ category.name }}
+                </li>
+              </ul>
+            </el-col>
+          </el-row>
+        </div>
 
         <div class="ordering">
           <ul>
@@ -150,7 +193,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="filter.page"
-          :page-sizes="[2, 3, 5, 10]"
+          :page-sizes="[3, 5, 10]"
           :page-size="filter.page_size"
           layout="sizes, prev, pager, next"
           :total="course_total"
@@ -170,13 +213,17 @@ export default {
   name: "Course",
   data() {
     return {
+      overflowfirst: true, // 分类多余后隐藏样式
+      overflowlast: false,
+      general_category_list: [], // 总目录，方向分类
       category_list: [], // 课程分类列表
       course_list: [], // 课程列表
       course_total: 0, // 当前课程的总数量
       filter: {
+        general_category: 0, // 当前用户选择总目录，刚进入是0
         course_category: 0, // 当前用户选择的课程分类，刚进入页面默认为全部，值为0
-        ordering: "-id", // 数据的排序方式，默认值是-id，表示对于id进行降序排列
-        page_size: 2, // 单页数据量
+        ordering: "id", // 数据的排序方式，默认值是-id，表示对于id进行降序排列
+        page_size: 3, // 单页数据量
         page: 1,
       },
     };
@@ -184,6 +231,7 @@ export default {
   created() {
     this.get_category();
     this.get_course();
+    this.get_general();
   },
   components: {
     Header,
@@ -191,6 +239,10 @@ export default {
   },
   watch: {
     //当你监听的数据发生变化，就会执行函数
+    "filter.general_category": function () {
+      this.filter.page = 1;
+      this.get_category();
+    },
     "filter.course_category": function () {
       this.filter.page = 1;
       this.get_course();
@@ -206,6 +258,16 @@ export default {
     },
   },
   methods: {
+    // 课程分类hidden方法
+    enter() {
+      if(this.category_list.length > 9){
+        (this.overflowfirst = false), (this.overflowlast = true);
+      }
+    },
+    leave() {
+      (this.overflowfirst = true), (this.overflowlast = false);
+    },
+
     buy_now(course) {
       let token = this.$cookies.get("token"); // let定义一个变量，取浏览器的cookies,token为登录后的标识
       if (!token) {
@@ -228,7 +290,7 @@ export default {
         headers: { Authorization: "jwt " + token }, // 头部携带jwt+token登录后的信息
       })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           let pay_url = response.data; // 将拿取到的响应支付宝跳转数据赋值给pay_url
           //前端发送get请求
           open(pay_url, "_self"); // _self在当前页面跳转支付
@@ -244,10 +306,36 @@ export default {
       // 页码发生变化时执行的方法
       this.filter.page = val;
     },
-    get_category() {
+
+    // 总目录
+    get_general() {
       // 获取课程分类信息
       this.$axios
-        .get(`${this.$settings.base_url}/course/categories/`)
+        .get(`${this.$settings.base_url}/course/generalcategor/`)
+        .then((response) => {
+          this.general_category_list = response.data;         
+
+        })
+        .catch(() => {
+          this.$message({
+            message: "获取总目录分类信息有误，请联系客服工作人员",
+          });
+        });
+    },
+
+    get_category() {
+      let filters = {
+        ordering: this.filter.ordering, // 排序
+      };
+      if (this.filter.general_category > 0) {
+        filters.general_category = this.filter.general_category;
+      }
+
+      // 获取课程分类信息
+      this.$axios
+        .get(`${this.$settings.base_url}/course/categories/`, {
+          params: filters,
+        })
         .then((response) => {
           this.category_list = response.data;
         })
@@ -308,11 +396,12 @@ export default {
 }
 
 .course .main {
-  width: 1100px;
+  width: 1300px;
   margin: 35px auto 0;
 }
 
 .course .condition {
+
   margin-bottom: 35px;
   padding: 25px 30px 25px 20px;
   background: #fff;
@@ -323,8 +412,10 @@ export default {
 .course .cate-list {
   border-bottom: 1px solid #333;
   border-bottom-color: rgba(51, 51, 51, 0.05);
-  padding-bottom: 18px;
-  margin-bottom: 17px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  height: 57px;
+  overflow: hidden;
 }
 
 .course .cate-list::after {
@@ -344,6 +435,25 @@ export default {
   cursor: pointer;
   color: #4a4a4a;
   border: 1px solid transparent; /* transparent 透明 */
+  margin: 8px 0px;
+}
+
+.course .cate-list span {
+  float: left;
+  font-size: 16px;
+  padding: 6px 15px;
+  line-height: 16px;
+  margin-left: 14px;
+  position: relative;
+  transition: all 0.4s ease;
+  color: #4a4a4a;
+  border: 1px solid transparent; /* transparent 透明 */
+  margin: 8px 0px;
+}
+
+.course .cate-list .col-3 {
+  width: 95px;
+
 }
 
 .course .cate-list .title {
@@ -355,6 +465,76 @@ export default {
 }
 
 .course .cate-list .this {
+  color: #ffc210;
+  border: 1px solid #ffc210 !important;
+  border-radius: 30px;
+}
+
+/* 课程分类隐藏样式 */
+.course .cate_list_hidden {
+  border: 1px solid #333;
+  border-color: rgba(49, 47, 47, 0.05);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  box-shadow: rgb(51 51 51 / 0%) 0px 12px 20px 0px;
+  background-color: rgb(107, 107, 107);
+  border-radius: 8px;
+  margin-left: -10px;
+  padding-left: 10px;
+  margin-top: -10px;
+  padding-top: 8px;
+  margin-right: -10px;
+  transition: all 0.7s ease;
+
+}
+
+.course .cate_list_hidden::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.course .cate_list_hidden li {
+  float: left;
+  font-size: 16px;
+  padding: 6px 15px;
+  line-height: 16px;
+  margin-left: 14px;
+  position: relative;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  color: #f8f6f6;
+  border: 1px solid transparent; /* transparent 透明 */
+  margin: 8px 0px;
+}
+
+.course .cate_list_hidden span {
+  float: left;
+  font-size: 16px;
+  padding: 6px 15px;
+  line-height: 16px;
+  margin-left: 14px;
+  position: relative;
+  transition: all 0.3s ease;
+  color: #eeeeee;
+  border: 1px solid transparent; /* transparent 透明 */
+  margin: 8px 0px;
+}
+
+.course .cate_list_hidden .col-3 {
+  width: 95px;
+  
+}
+
+.course .cate_list_hidden .title {
+  color: rgb(245, 245, 245);
+  margin-left: 0;
+  letter-spacing: 0.36px;
+  padding: 0;
+  line-height: 28px;
+}
+
+.course .cate_list_hidden .this {
   color: #ffc210;
   border: 1px solid #ffc210 !important;
   border-radius: 30px;
@@ -392,19 +572,23 @@ export default {
   transition: all 0.3s ease;
   cursor: pointer;
   color: #4a4a4a;
+  margin-top: 10px;
+  margin-bottom: -10px;
 }
 
 .course .ordering .title {
   font-size: 16px;
   color: #888;
   letter-spacing: 0.36px;
-  margin-left: 0;
+  margin-left: 10;
   padding: 0;
   line-height: 28px;
+  cursor: text;
 }
 
 .course .ordering .this {
   color: #ffc210;
+  margin-left: 30px;
 }
 
 .course .ordering .price {
@@ -447,6 +631,7 @@ export default {
 }
 
 .course .course-item {
+  margin: auto;
   width: 1100px;
   background: #fff;
   padding: 20px 30px 20px 20px;

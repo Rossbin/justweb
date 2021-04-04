@@ -2,7 +2,7 @@
 
     <div id="banner">
 
-        <el-carousel height="400px">
+        <el-carousel height="382px"  >
             <el-carousel-item v-for="(item,index) in banner_list" :key="index">
                 <!--<img src="../assets/img/banner1.png" alt="">-->
                 <router-link :to="item.link">
@@ -38,14 +38,19 @@
 
 <style scoped>
     .el-carousel__item {
-        height: 400px;
-        min-width: 1200px;
+        height: 382px;
+        min-width: 896px;
     }
 
     .el-carousel__item img {
-        height: 400px;
-        margin-left: 20px;
-        margin-left: calc(50% - 1920px / 2);
+        /* height: 400px; */
+        /* margin-left: 20px; */
+        /* margin-left: calc(50% - 1920px / 2); */
+        
+        width: auto;  
+        height: auto;  
+        max-width: 100%;  
+        max-height: 100%; 
     }
 
 </style>

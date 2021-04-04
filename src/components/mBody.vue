@@ -59,6 +59,7 @@
               <p class="section-para">
                 不忘初心，方得始终。从不敢对每一天懈怠，才能创造今天的成就
               </p>
+
             </h1>
           </div>
         </div>
@@ -245,28 +246,27 @@
         </div> -->
       </div>
 
-      <div class="row" style="margin-top:20px;">
+      <div class="row" style="margin-top: 20px">
         <div class="col-md-8 col-md-offset-2">
-        <el-carousel :interval="4000" type="card" height="550px">
-          <el-carousel-item v-for="(item, index) in course_list" :key="index">
-            <div class="col-md-12 project-box2">
-              <div class="project-img">
-                <router-link
-                  :to="'/base-course/detail/' + item.id"
-                  style="text-decoration: none"
-                  ><img :src="item.course_img" alt class="img-responsive"
-                /></router-link>
+          <el-carousel :interval="4000" type="card" height="550px">
+            <el-carousel-item v-for="(item, index) in course_list" :key="index">
+              <div class="col-md-12 project-box2">
+                <div class="project-img">
+                  <router-link
+                    :to="'/base-course/detail/' + item.id"
+                    style="text-decoration: none"
+                    ><img :src="item.course_img" alt class="img-responsive"
+                  /></router-link>
+                </div>
+                <div class="project-text" id="popularcourse-name">
+                  <h3 style="margin-bottom: 20px">{{ item.name }}</h3>
+                  <h4>讲师：{{ item.teacher.name }}</h4>
+                  <span>课程简介：{{ item.brief }}</span>
+                </div>
               </div>
-              <div class="project-text" id="popularcourse-name">
-                <h3 style="margin-bottom: 20px">{{ item.name }}</h3>
-                <h4>讲师：{{ item.teacher.name }}</h4>
-                <span>课程简介：{{ item.brief }}</span>
-              </div>
-            </div>
-          </el-carousel-item>
-        </el-carousel>          
+            </el-carousel-item>
+          </el-carousel>
         </div>
-
       </div>
     </section>
 
@@ -382,7 +382,7 @@ export default {
       this.$axios
         .get(`${this.$settings.base_url}/course/categories/`)
         .then((response) => {
-          console.log("课程分类", response.data);
+          // console.log("课程分类", response.data);
           this.category_list = response.data;
         })
         .catch(() => {
@@ -410,7 +410,7 @@ export default {
         .then((response) => {
           // console.log(response.data);
           this.course_list = response.data;
-          console.log("返回的课程", this.course_list);
+          // console.log("返回的课程", this.course_list);
         })
         .catch(() => {
           this.$message({

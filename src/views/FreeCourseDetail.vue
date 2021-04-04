@@ -52,12 +52,12 @@
                 立即购买
               </button>
               <el-button
-                type="success"
+                
                 class="praise"
                 circle
                 :class="{ praise_model: praiseShow }"
                 @click="praiseUpdate()"
-                ><i class="fa fa-heart" aria-hidden="true"></i
+                ><i class="fa fa-heart" style="margin-bottom:-2px; display:block;" aria-hidden="true"></i
               ></el-button>
             </div>
             <!-- <div class="add-cart" @click="add_cart(course_info.id)"> -->
@@ -174,7 +174,8 @@
                 v-for="(item, index) in comment_port"
                 :key="index"
               >
-                <el-col :span="20" :offset="2">
+                <div v-if="item.comment == ''"></div>
+                <el-col v-else :span="20" :offset="2">
                   <el-card
                     class="box-card"
                     shadow="hover"
@@ -994,6 +995,7 @@ export default {
   font-size: 40px;
   margin-left: 45px;
   color: #fafafa;
+  background-color: red;
 }
 
 .praise:hover {
