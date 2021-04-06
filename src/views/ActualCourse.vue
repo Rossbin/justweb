@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Header ref="mheader"></Header>
+    <div class="head_sticky">
+      <Header ref="mheader" />
+    </div>       
+
     <el-backtop>
       <div
         style="
@@ -68,4 +71,13 @@ export default {
 
 
 <style scoped>
+
+/* 导航栏吸顶 */
+.head_sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
 </style>

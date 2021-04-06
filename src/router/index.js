@@ -103,7 +103,21 @@ const routes = [
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition){
+        if(savedPosition){
+            console.log(savePosition);
+            return savedPosition;
+        }else{
+            const position = {};
+            position.selector = to.hash;
+            position.behavior = 'smooth';
+            if(to.hash){
+                position.offset = {y:110}
+            }
+            return position;
+        }
+    }
 })
 
 export default router

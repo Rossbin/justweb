@@ -1,6 +1,8 @@
 <template>
   <div class="detail">
-    <Header />
+    <div class="head_sticky">
+      <Header />
+    </div>    
     <div class="main">
       <div class="course-info">
         <!--                 视频黑框尺寸，已经写死了-->
@@ -577,6 +579,15 @@ export default {
 </script>
 
 <style scoped>
+
+/* 导航栏吸顶 */
+.head_sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
 .main {
   background: #fff;
   padding-top: 30px;

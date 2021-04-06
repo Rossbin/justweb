@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <Head />
+    <div class="head_sticky">
+      <Head />
+    </div>
 
     <el-backtop>
       <div
@@ -30,7 +32,7 @@
           v-for="(general, index) in general_category_list"
           :key="index"
           @mouseenter="enter(index)"
-          @mouseleave="leave(index)"
+          @mouseleave="leave()"
         >
           <div class="inner-box">
             <h2 class="type">{{ general.name }}</h2>
@@ -97,7 +99,7 @@
             v-for="(general, index) in general_category_list"
             :key="index"
             @mouseenter="enter(index)"
-            @mouseleave="leave(index)"
+            @mouseleave="leave()"
           >
             <span class="title">{{ general.name }}：</span>
             <span class="sub-title">
@@ -179,6 +181,17 @@
             <p>千万级电商架构0-100</p>
           </div>
         </router-link>
+
+        <div class="line"></div>
+
+        <router-link to="#" class="all-btn" target="_blank">
+          <div class="mini-title">体系课</div>
+          <div class="more-btn">
+            more
+
+            <i class="fa fa-angle-right icon-right2" aria-hidden="true"></i>
+          </div>
+        </router-link>
       </div>
     </section>
 
@@ -253,12 +266,25 @@ export default {
     Head,
     Footer,
     Banner,
+    // mBody,
     mBody,
   },
 };
 </script>
 
 <style  scoped>
+.home {
+  font: 14px/1.5 "PingFang SC", "微软雅黑", "Microsoft YaHei", Helvetica,
+    "Helvetica Neue", Tahoma, Arial, sans-serif;
+}
+/* 导航栏吸顶 */
+.head_sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
 .sider_banner {
   padding: 32px 0px;
   text-decoration: none;
@@ -567,7 +593,6 @@ export default {
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
-  
 }
 .describe > p {
   margin: 0;
@@ -581,5 +606,41 @@ export default {
   overflow: hidden;
 }
 
+.system-class-show .line {
+  float: left;
+  height: 36px;
+  border: 1px solid #e8e8e8;
+  margin-left: 16px;
+  margin-top: 33px;
+}
+.system-class-show .all-btn {
+  position: relative;
+  display: block;
+  height: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+}
+.system-class-show .all-btn .mini-title {
+  font-family: PingFangSC-Medium;
+  font-size: 12px;
+  color: #1c1f21;
+  text-align: center;
+  line-height: 14px;
+  margin-top: 40px;
+}
+.system-class-show .all-btn .more-btn {
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #545c63;
+  line-height: 12px;
+  margin-left: 30px;
+  position: relative;
+}
 
+.system-class-show .all-btn .more-btn .icon-right2 {
+  position: absolute;
+  top: 2px;
+  left: 37px;
+}
 </style>

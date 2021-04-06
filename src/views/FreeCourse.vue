@@ -1,6 +1,9 @@
 <template>
   <div class="course">
-    <Header></Header>
+    <div class="head_sticky">
+      <Header />
+    </div>
+
     <el-backtop>
       <div
         style="
@@ -28,7 +31,7 @@
             <el-col :span="3" class="col-3">
               <span class="title">学习方向:</span>
             </el-col>
-            <el-col :span="20" style="padding-left: 0px">
+            <el-col :span="22" style="padding-left: 0px">
               <ul>
                 <li
                   :class="filter.general_category == 0 ? 'this' : ''"
@@ -62,7 +65,7 @@
             <el-col :span="3" class="col-3">
               <span class="title">课程分类:</span>
             </el-col>
-            <el-col :span="20" style="padding-left: 0px">
+            <el-col :span="22" style="padding-left: 0px">
               <ul>
                 <li
                   :class="filter.course_category == 0 ? 'this' : ''"
@@ -140,52 +143,56 @@
           v-for="course in course_list"
           :key="course.name"
         >
-          <div class="course-image">
-            <img :src="course.course_img" alt="" />
-          </div>
-          <div class="course-info">
-            <h3>
-              <router-link :to="'/base-course/detail/' + course.id">{{
-                course.name
-              }}</router-link>
-              <span
-                ><img src="@/assets/img/avatar1.svg" alt="" />{{
-                  course.students
-                }}人已加入学习</span
-              >
-            </h3>
-            <p class="teather-info">
-              {{ course.teacher.name }} {{ course.teacher.title }}
-              {{ course.teacher.signature }}
-              <span v-if="course.sections > course.pub_sections"
-                >共{{ course.sections }}课时/已更新{{
-                  course.pub_sections
-                }}课时</span
-              >
-              <span v-else>共{{ course.sections }}课时/更新完成</span>
-            </p>
-            <ul class="section-list">
-              <li
-                v-for="(section, key) in course.section_list"
-                :key="section.name"
-              >
-                <span class="section-title"
-                  >0{{ key + 1 }} | {{ section.name }}</span
-                >
-                <span class="free" v-if="section.free_trail">免费试看</span>
-              </li>
-            </ul>
-            <div class="pay-box">
-              <div v-if="course.discount_type">
-                <span class="discount-type">{{ course.discount_type }}</span>
-                <span class="discount-price">￥{{ course.real_price }}元</span>
-                <span class="original-price">原价：{{ course.price }}元</span>
-              </div>
-              <span v-else class="discount-price">￥{{ course.price }}元</span>
-              <!--购买支付宝网页支付调用前端-->
-              <span class="buy-now" @click="buy_now(course)">立即购买</span>
+          <router-link :to="'/base-course/detail/' + course.id" target="_blank">
+            <div class="course-image">
+              <img :src="course.course_img" alt="" />
             </div>
-          </div>
+            <div class="course-info">
+              <h3>
+                {{ course.name }}
+                <span
+                  ><img src="@/assets/img/avatar1.svg" alt="" />{{
+                    course.students
+                  }}人已加入学习</span
+                >
+              </h3>
+              <p class="teather-info">
+                {{ course.teacher.name }} {{ course.teacher.title }}
+                {{ course.teacher.signature }}
+                <span v-if="course.sections > course.pub_sections"
+                  >共{{ course.sections }}课时/已更新{{
+                    course.pub_sections
+                  }}课时</span
+                >
+                <span v-else>共{{ course.sections }}课时/更新完成</span>
+              </p>
+              <ul class="section-list">
+                <li
+                  v-for="(section, key) in course.section_list"
+                  :key="section.name"
+                >
+                  <span class="section-title"
+                    >0{{ key + 1 }} | {{ section.name }}</span
+                  >
+                  <span class="free" v-if="section.free_trail">多人推荐</span>
+                </li>
+              </ul>
+              <div class="pay-box">
+                <div v-if="course.discount_type">
+                  <span class="discount-type">{{ course.discount_type }}</span>
+                  <span class="discount-price"
+                    >￥{{ course.real_price }}元</span
+                  >
+                  <span class="original-price">原价：{{ course.price }}元</span>
+                </div>
+                <span v-else class="discount-price"
+                  >￥{{ course.price }}元</span
+                >
+                <!--购买支付宝网页支付调用前端-->
+                <span class="buy-now" @click="buy_now(course)">立即购买</span>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
       <div class="course_pagination block">
@@ -260,7 +267,7 @@ export default {
   methods: {
     // 课程分类hidden方法
     enter() {
-      if(this.category_list.length > 9){
+      if (this.category_list.length > 12) {
         (this.overflowfirst = false), (this.overflowlast = true);
       }
     },
@@ -313,8 +320,7 @@ export default {
       this.$axios
         .get(`${this.$settings.base_url}/course/generalcategor/`)
         .then((response) => {
-          this.general_category_list = response.data;         
-
+          this.general_category_list = response.data;
         })
         .catch(() => {
           this.$message({
@@ -391,6 +397,14 @@ export default {
 </script>
 
 <style scoped>
+/* 导航栏吸顶 */
+.head_sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
 .course {
   background: #f6f6f6;
 }
@@ -401,7 +415,6 @@ export default {
 }
 
 .course .condition {
-
   margin-bottom: 35px;
   padding: 25px 30px 25px 20px;
   background: #fff;
@@ -453,7 +466,6 @@ export default {
 
 .course .cate-list .col-3 {
   width: 95px;
-
 }
 
 .course .cate-list .title {
@@ -485,7 +497,6 @@ export default {
   padding-top: 8px;
   margin-right: -10px;
   transition: all 0.7s ease;
-
 }
 
 .course .cate_list_hidden::after {
@@ -523,7 +534,6 @@ export default {
 
 .course .cate_list_hidden .col-3 {
   width: 95px;
-  
 }
 
 .course .cate_list_hidden .title {

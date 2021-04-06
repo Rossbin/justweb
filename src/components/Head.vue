@@ -3,7 +3,7 @@
         <div class="slogan">
             <p>Just-edu | 江苏科技大学在线教育平台，欢迎您的光顾！   <a href="/">关于我们</a> </p>
         </div>
-        <div class="nav">
+        <div class="nav" >
             <ul class="left-part">
                 <li class="logo">
                     <router-link to="/">
@@ -158,6 +158,10 @@
 </script>
 
 <style scoped>
+
+
+
+
     .header {
         background-color: white;
         box-shadow: 0 0 5px 0 #aaa;

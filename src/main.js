@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+Vue.config.devtools = false;
 
 
 // 配置全局样式 @ 符号，代指src路径
@@ -44,6 +45,7 @@ require('video.js/dist/video-js.css');
 require('vue-video-player/src/custom-theme.css');
 import VideoPlayer from 'vue-video-player'
 Vue.use(VideoPlayer);
+
 
 new Vue({
   router,
