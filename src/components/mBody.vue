@@ -217,7 +217,12 @@
         />
       </p>
       
-      <div class="_2UeVQ" role="button" tabindex="0"><a class="_2UeVQ" href="#" style="text-decoration:none">开启学习之旅</a></div>
+      <div v-if="!token" class="_2UeVQ" role="button" tabindex="0" @click="put_login">
+        开启学习之旅
+        <!-- <a class="_2UeVQ" href="#" style="text-decoration: none"  
+          >开启学习之旅</a
+        > -->
+      </div>
     </div>
 
     <!-- 悬浮左侧栏 -->
@@ -238,15 +243,33 @@
         </li>
       </ul>
     </div>
+
+    <Login
+      v-if="is_login"
+      @close="close_login"
+      @go="put_register"
+      @loginsuccess="login_success"
+    />
+    <Register v-if="is_register" @close="close_register" @go="put_login" />
   </section>
 </template>
 
 
 <script>
+import Login from "./Login";
+import Register from "./Register";
+
 export default {
   name: "mBody",
   data() {
     return {
+      // 尾部开始学习
+      is_login: false,
+      is_register: false,
+      token: "",
+      username: "",
+      icon: "",
+
       SideBar: [
         { name: "优秀精品课", show: false, anchor: "excellent" },
         { name: "计算机", show: false, anchor: "computer" },
@@ -268,6 +291,27 @@ export default {
   },
 
   methods: {
+    // 尾部的开始学习
+    put_login() {
+      this.is_login = true;
+      this.is_register = false;
+    },
+    put_register() {
+      this.is_login = false;
+      this.is_register = true;
+    },
+    close_login() {
+      this.is_login = false;
+    },
+    close_register() {
+      this.is_register = false;
+    },
+    login_success() {
+      this.username = this.$cookies.get("username");
+      this.icon = this.$settings.base_url + this.$cookies.get("icon");
+      this.token = this.$cookies.get("token");
+    },
+
     // 左侧边栏
     sidebarfunction(index) {
       this.SideBar.forEach(function (c) {
@@ -390,6 +434,11 @@ export default {
     this.get_college_language();
     this.get_college_engineer();
     this.get_college_science();
+    this.token = this.$cookies.get('token')
+  },
+  components: {
+    Login,
+    Register,
   },
 };
 </script>
