@@ -53,6 +53,7 @@
         </div>
 
         <!-- 课程分类 -->
+
         <div
           :class="{
             'cate-list': overflowfirst,
@@ -61,6 +62,7 @@
           @mouseenter="enter()"
           @mouseleave="leave()"
         >
+        <div class="absolute">
           <el-row :gutter="20">
             <el-col :span="3" class="col-3">
               <span class="title">课程分类:</span>
@@ -84,6 +86,8 @@
               </ul>
             </el-col>
           </el-row>
+        </div>
+
         </div>
 
         <div class="ordering">
@@ -143,11 +147,17 @@
           v-for="course in course_list"
           :key="course.name"
         >
-          <router-link :to="'/base-course/detail/' + course.id" target="_blank">
+          <router-link :to="'/base-course/detail/' + course.id" target="_blank" class="router-link">
             <div class="course-image">
               <img :src="course.course_img" alt="" />
             </div>
-            <div class="course-info">
+          </router-link>
+          <div class="course-info">
+            <router-link
+              :to="'/base-course/detail/' + course.id"
+              target="_blank"
+              class="router-link"
+            >
               <h3>
                 {{ course.name }}
                 <span
@@ -164,7 +174,10 @@
                     course.pub_sections
                   }}课时</span
                 >
-                <span v-else>共{{ course.sections }}课时/更新完成</span>
+                <span v-else
+                  >共{{ course.sections }}课时 ·
+                  {{ course.project_name }}课</span
+                >
               </p>
               <ul class="section-list">
                 <li
@@ -177,22 +190,18 @@
                   <span class="free" v-if="section.free_trail">多人推荐</span>
                 </li>
               </ul>
-              <div class="pay-box">
-                <div v-if="course.discount_type">
-                  <span class="discount-type">{{ course.discount_type }}</span>
-                  <span class="discount-price"
-                    >￥{{ course.real_price }}元</span
-                  >
-                  <span class="original-price">原价：{{ course.price }}元</span>
-                </div>
-                <span v-else class="discount-price"
-                  >￥{{ course.price }}元</span
-                >
-                <!--购买支付宝网页支付调用前端-->
-                <span class="buy-now" @click="buy_now(course)">立即购买</span>
+            </router-link>
+            <div class="pay-box">
+              <div v-if="course.discount_type">
+                <span class="discount-type">{{ course.discount_type }}</span>
+                <span class="discount-price">￥{{ course.real_price }}元</span>
+                <span class="original-price">原价：{{ course.price }}元</span>
               </div>
+              <span v-else class="discount-price">￥{{ course.price }}元</span>
+              <!--购买支付宝网页支付调用前端-->
+              <span class="buy-now" @click="buy_now(course)">立即购买</span>
             </div>
-          </router-link>
+          </div>
         </div>
       </div>
       <div class="course_pagination block">
@@ -377,7 +386,7 @@ export default {
 
       // 获取课程列表信息
       this.$axios
-        .get(`${this.$settings.base_url}/course/free/`, {
+        .get(`${this.$settings.base_url}/course/basecourse/`, {
           params: filters,
         })
         .then((response) => {
@@ -420,6 +429,7 @@ export default {
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 #f0f0f0;
+  height: 220px;
 }
 
 .course .cate-list {
@@ -435,6 +445,13 @@ export default {
   content: "";
   display: block;
   clear: both;
+}
+
+.course .cate-list .absolute{
+  position: absolute;
+  width: 1164.16px;
+  height: 57px;
+  overflow: hidden;
 }
 
 .course .cate-list li {
@@ -497,6 +514,10 @@ export default {
   padding-top: 8px;
   margin-right: -10px;
   transition: all 0.7s ease;
+  position: absolute;
+  width: 1273.750px;
+  overflow: hidden;
+  z-index: 5;
 }
 
 .course .cate_list_hidden::after {
@@ -660,15 +681,17 @@ export default {
 }
 
 /* 顶级元素 父级元素  当前元素{} */
-.course .course-item .course-image {
+.course .course-item .router-link .course-image {
   float: left;
   width: 423px;
   height: 210px;
   margin-right: 30px;
+  
 }
 
-.course .course-item .course-image img {
-  max-width: 100%;
+.course .course-item .router-link .course-image img {
+  /* max-width: 100%; */
+  width: 423px;
   max-height: 210px;
   border-radius: 8px;
 }
@@ -676,6 +699,10 @@ export default {
 .course .course-item .course-info {
   float: left;
   width: 596px;
+  
+}
+.course-info .router-link{
+  text-decoration: none;
 }
 
 .course-item .course-info h3 a {

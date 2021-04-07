@@ -182,8 +182,9 @@
         width: 1200px;
         margin: 0 auto;
         color: #aaa;
-        font-size: 13px;
+        font-size: 15px;
         line-height: 40px;
+
     }
 
     .slogan p a {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="head_sticky">
-      <Header ref="mheader" />
+      <Header />
     </div>       
 
     <el-backtop>
@@ -22,8 +22,8 @@
         <i class="fa fa-arrow-up" aria-hidden="true"></i>UP
       </div>
     </el-backtop>
-    <ActualBody ref="mbody"></ActualBody>
-    <actualVideo></actualVideo>
+    <ActualBody ></ActualBody>
+
     <Footer></Footer>
   </div>
 </template>
@@ -32,7 +32,7 @@
 import Header from "@/components/Head";
 import Footer from "@/components/Footer";
 import ActualBody from "@/components/ActualBody";
-import actualVideo from "@/components/actualVideo";
+
 export default {
   name: "ActualCourse",
   data() {
@@ -42,28 +42,13 @@ export default {
     Header,
     Footer,
     ActualBody,
-    actualVideo,
-  },
-  //   mounted() {
-  //     window.onscroll = this.handleScroll;
-  //   },
 
-  //   beforeDestroy() {
-  //     window.onscroll = null;
-  //   },
+  },
+
 
   methods: {
-    // handleScroll() {
-    //   var a =
-    //     this.$refs.mheader.$el.offsetHeight +
-    //     this.$refs.mbody.$el.offsetHeight;
-    //   console.log(a);
-    //   if (document.documentElement.scrollTop >= this.a) {
-    //     this.isFixed = true;
-    //   } else {
-    //     this.isFixed = false;
-    //   }
-    // },
+
+
   },
 };
 </script>

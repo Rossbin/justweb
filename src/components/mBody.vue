@@ -227,12 +227,13 @@
           v-for="(sidebar, index) in SideBar"
           :key="index"
         >
-        <router-link :class="{ active: sidebar.show }" :to="{ hash: '#' + sidebar.anchor }" class="router-link">
-            {{
-            sidebar.name
-          }}
-        </router-link>
-         
+          <router-link
+            :class="{ active: sidebar.show }"
+            :to="{ hash: '#' + sidebar.anchor }"
+            class="router-link"
+          >
+            {{ sidebar.name }}
+          </router-link>
         </li>
       </ul>
     </div>
@@ -497,7 +498,6 @@ export default {
   justify-content: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 1200px;
   padding: 80px 0 100px 0;
 }
 ._1U0Cy ._3lQws {

@@ -105,18 +105,16 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
     scrollBehavior(to, from, savedPosition){
-        if(savedPosition){
-            console.log(savePosition);
-            return savedPosition;
-        }else{
-            const position = {};
-            position.selector = to.hash;
-            position.behavior = 'smooth';
+
             if(to.hash){
-                position.offset = {y:110}
+                // position.offset = {y:110}
+                return{
+                    selector: to.hash,
+                    offset: {y:100},
+                    behavior: 'smooth',
+                }
             }
-            return position;
-        }
+
     }
 })
 

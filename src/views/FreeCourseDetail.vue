@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="head_sticky">
       <Header />
-    </div>    
+    </div>
     <div class="main">
       <div class="course-info">
         <!--                 视频黑框尺寸，已经写死了-->
@@ -33,15 +33,16 @@
         </div>
         <div class="wrap-right">
           <h3 class="course-name">{{ course_info.name }}</h3>
+          
           <p class="data">
-            {{
-              course_info.students
-            }}人在学&nbsp;&nbsp;&nbsp;&nbsp;课程总时长：{{
-              course_info.sections
-            }}课时/{{
+            课程总时长：{{ course_info.sections }}课时/{{
               course_info.pub_sections
-            }}小时&nbsp;&nbsp;&nbsp;&nbsp;难度：{{ course_info.level_name }}
+            }}小时
           </p>
+          
+          <p class="data">课程类型：{{ course_info.project_name }}课</p>
+          <p class="data">难度：{{ course_info.level_name }}</p>
+          <p class="data">{{ course_info.students }}人在学</p>
           <div class="sale-time">
             <p class="sale-type">
               价格: <span class="original_price">¥{{ course_info.price }}</span>
@@ -54,12 +55,15 @@
                 立即购买
               </button>
               <el-button
-                
                 class="praise"
                 circle
                 :class="{ praise_model: praiseShow }"
                 @click="praiseUpdate()"
-                ><i class="fa fa-heart" style="margin-bottom:-2px; display:block;" aria-hidden="true"></i
+                ><i
+                  class="fa fa-heart"
+                  style="margin-bottom: -2px; display: block"
+                  aria-hidden="true"
+                ></i
               ></el-button>
             </div>
             <!-- <div class="add-cart" @click="add_cart(course_info.id)"> -->
@@ -579,9 +583,8 @@ export default {
 </script>
 
 <style scoped>
-
 /* 导航栏吸顶 */
-.head_sticky{
+.head_sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -627,9 +630,11 @@ export default {
 .data {
   padding-left: 10px;
   padding-right: 23px;
-  padding-bottom: 16px;
+  /* padding-bottom: 16px; */
+  margin-bottom: 5px;
   font-size: 16px;
   color: #777171;
+  text-align: left;
 }
 
 /* 价格 */
@@ -704,6 +709,7 @@ export default {
   left: 0;
   bottom: 20px;
   overflow: hidden;
+  margin-bottom: -15px;
 }
 
 .buy .buy-btn {
@@ -1007,6 +1013,7 @@ export default {
   margin-left: 45px;
   color: #fafafa;
   background-color: red;
+  
 }
 
 .praise:hover {
