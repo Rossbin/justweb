@@ -216,7 +216,8 @@
           alt=""
         />
       </p>
-      <div class="_2UeVQ" role="button" tabindex="0">开启学习之旅</div>
+      
+      <div class="_2UeVQ" role="button" tabindex="0"><a class="_2UeVQ" href="#" style="text-decoration:none">开启学习之旅</a></div>
     </div>
 
     <!-- 悬浮左侧栏 -->
@@ -288,7 +289,7 @@ export default {
         .then((response) => {
           // console.log(response.data);
           this.course_list = response.data;
-          console.log("返回的课程", this.course_list);
+          // console.log("返回的课程", this.course_list);
         })
         .catch(() => {
           this.$message({
@@ -311,7 +312,7 @@ export default {
         })
         .then((response) => {
           this.college_computer = response.data;
-          console.log("计算机返回的课程", this.college_computer);
+          // console.log("计算机返回的课程", this.college_computer);
         })
         .catch(() => {
           this.$message({
@@ -332,7 +333,7 @@ export default {
         })
         .then((response) => {
           this.college_language = response.data;
-          console.log("计算机返回的课程", this.college_language);
+          // console.log("计算机返回的课程", this.college_language);
         })
         .catch(() => {
           this.$message({
@@ -353,7 +354,7 @@ export default {
         })
         .then((response) => {
           this.college_engineer = response.data;
-          console.log("计算机返回的课程", this.college_engineer);
+          // console.log("计算机返回的课程", this.college_engineer);
         })
         .catch(() => {
           this.$message({
@@ -374,7 +375,7 @@ export default {
         })
         .then((response) => {
           this.college_science = response.data;
-          console.log("计算机返回的课程", this.college_science);
+          // console.log("计算机返回的课程", this.college_science);
         })
         .catch(() => {
           this.$message({

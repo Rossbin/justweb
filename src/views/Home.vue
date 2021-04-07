@@ -73,7 +73,7 @@
                   <div class="title_box">
                     <p class="title">
                       <span class="text">{{ fourvid.name }}</span>
-                      <span class="tag tixi">体系</span>
+                      <span class="tag tixi"></span>
                     </p>
                   </div>
                   <div class="bottom">
@@ -120,7 +120,7 @@
       </div>
 
       <div class="system-class-show">
-        <router-link to="#" class="show-box" target="_blank">
+        <router-link to="/base-course/detail/112" class="show-box" target="_blank">
           <div
             class="system-class-icon"
             style="
@@ -133,7 +133,7 @@
           </div>
         </router-link>
 
-        <router-link to="#" class="show-box" target="_blank">
+        <router-link to="/base-course/detail/110" class="show-box" target="_blank">
           <div
             class="system-class-icon"
             style="
@@ -145,7 +145,7 @@
             <p>入门快、就业快、岗位多</p>
           </div>
         </router-link>
-        <router-link to="#" class="show-box" target="_blank">
+        <router-link to="/base-course/detail/113" class="show-box" target="_blank">
           <div
             class="system-class-icon"
             style="
@@ -157,7 +157,7 @@
             <p>应用领域最广泛</p>
           </div>
         </router-link>
-        <router-link to="#" class="show-box" target="_blank">
+        <router-link to="/base-course/detail/111" class="show-box" target="_blank">
           <div
             class="system-class-icon"
             style="
@@ -166,10 +166,10 @@
           ></div>
           <div class="describe">
             <h4>Web前端架构师</h4>
-            <p>培养前端P7级架构师</p>
+            <p>培养前端架构师</p>
           </div>
         </router-link>
-        <router-link to="#" class="show-box" target="_blank">
+        <router-link to="/base-course/detail/115" class="show-box" target="_blank">
           <div
             class="system-class-icon"
             style="
@@ -177,15 +177,15 @@
             "
           ></div>
           <div class="describe">
-            <h4>Java架构师P7</h4>
-            <p>千万级电商架构0-100</p>
+            <h4>web工程师</h4>
+            <p>千万级电商项目</p>
           </div>
         </router-link>
 
         <div class="line"></div>
 
-        <router-link to="#" class="all-btn" target="_blank">
-          <div class="mini-title">体系课</div>
+        <router-link to="/actual-course" class="all-btn" target="_blank">
+          <div class="mini-title">实战课</div>
           <div class="more-btn">
             more
 

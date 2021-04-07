@@ -107,7 +107,6 @@ const router = new VueRouter({
     scrollBehavior(to, from, savedPosition){
 
             if(to.hash){
-                // position.offset = {y:110}
                 return{
                     selector: to.hash,
                     offset: {y:100},

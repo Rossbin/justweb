@@ -752,7 +752,7 @@ export default {
   padding-left: 22px;
   /* background: url("路径") 是否平铺 x轴位置 y轴位置 */
   background: url("/src/assets/img/play-icon-gray.svg") no-repeat left 4px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .course-item .section-list li .section-title {

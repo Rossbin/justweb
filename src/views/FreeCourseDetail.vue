@@ -45,7 +45,7 @@
           <p class="data">{{ course_info.students }}人在学</p>
           <div class="sale-time">
             <p class="sale-type">
-              价格: <span class="original_price">¥{{ course_info.price }}</span>
+              优惠价: <span class="original_price">¥{{ course_info.price }}</span>
             </p>
             <p class="expire"></p>
           </div>
@@ -103,7 +103,7 @@
                 overflow-y: auto;
               "
             >
-              <div class="course-brief" v-html="course_info.brief_text"></div>
+              <div class="course-brief" v-text="course_info.brief"></div>
             </div>
           </div>
           <div class="tab-item" v-if="tabIndex == 2">
@@ -621,10 +621,12 @@ export default {
 }
 
 .course-name {
-  font-size: 3.8rem;
+  font-size: 2.4rem;
   color: #333;
   padding: 10px 0px;
   letter-spacing: 0.45px;
+  display: block;
+  width: 480px;
 }
 
 .data {
@@ -648,9 +650,9 @@ export default {
 
 .sale-time {
   width: 464px;
-  background: rgba(250, 98, 64, 0.5);
+  /* background: rgba(248, 247, 246, 0.5); */
   font-size: 14px;
-  color: #4a4a4a;
+  color: #f30e0e;
   padding: 10px 23px;
   overflow: hidden;
   /* margin-left: 10px; */
@@ -659,7 +661,7 @@ export default {
 
 .sale-type {
   font-size: 16px;
-  color: rgb(70, 67, 67);
+  color: rgb(199, 27, 27);
   letter-spacing: 0.36px;
   float: left;
   padding-left: -6px;
@@ -1026,5 +1028,18 @@ export default {
   background-color: rgb(253, 249, 249);
   border: 1px solid rgb(250, 247, 247);
   color: rgb(226, 32, 32);
+}
+
+/* 课程详情介绍 */
+.course-brief{
+  text-align:justify;
+  font-size: 26px;
+  font-weight: bold;
+  color: #9b9b9b;
+  width: 700px;
+  text-indent:50px;
+  letter-spacing:2px;
+  line-height:200%;
+  text-shadow:1px 0px #131212
 }
 </style>
