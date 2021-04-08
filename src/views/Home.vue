@@ -123,10 +123,8 @@
         <router-link to="/base-course/detail/112" class="show-box" target="_blank">
           <div
             class="system-class-icon"
-            style="
-              background-image: url(//img.mukewang.com/601bd59c0001fc1800900090.jpg);
-            "
-          ></div>
+            
+          ><img  src="../assets/img/601bd59c0001fc1800900090.jpg" alt=""  ></div>
           <div class="describe">
             <h4>Java工程师</h4>
             <p>综合就业率第一</p>
@@ -136,10 +134,8 @@
         <router-link to="/base-course/detail/110" class="show-box" target="_blank">
           <div
             class="system-class-icon"
-            style="
-              background-image: url(//img4.mukewang.com/601bd5b2000180bb00900090.jpg);
-            "
-          ></div>
+           
+          ><img  src="../assets/img/601bd5b2000180bb00900090.jpg" alt=""  ></div>
           <div class="describe">
             <h4>前端工程师</h4>
             <p>入门快、就业快、岗位多</p>
@@ -148,10 +144,8 @@
         <router-link to="/base-course/detail/113" class="show-box" target="_blank">
           <div
             class="system-class-icon"
-            style="
-              background-image: url(//img4.mukewang.com/601bd5ba0001fbfa00900090.jpg);
-            "
-          ></div>
+            
+          ><img  src="../assets/img/601bd5ba0001fbfa00900090.jpg" alt=""  ></div>
           <div class="describe">
             <h4>Python工程师</h4>
             <p>应用领域最广泛</p>
@@ -160,10 +154,8 @@
         <router-link to="/base-course/detail/111" class="show-box" target="_blank">
           <div
             class="system-class-icon"
-            style="
-              background-image: url(//img3.mukewang.com/601bd5c90001b1fe00900090.jpg);
-            "
-          ></div>
+            
+          > <img src="../assets/img/601bd5c90001b1fe00900090.jpg" alt=""></div>
           <div class="describe">
             <h4>Web前端架构师</h4>
             <p>培养前端架构师</p>
@@ -172,10 +164,8 @@
         <router-link to="/base-course/detail/115" class="show-box" target="_blank">
           <div
             class="system-class-icon"
-            style="
-              background-image: url(//img1.mukewang.com/601bd5d1000155d100900090.jpg);
-            "
-          ></div>
+            
+          ><img  src="../assets/img/601bd5d1000155d100900090.jpg" alt=""  ></div>
           <div class="describe">
             <h4>web工程师</h4>
             <p>千万级电商项目</p>
@@ -568,7 +558,7 @@ export default {
   cursor: pointer;
   color: #1c1f21;
 }
-.system-class-show .show-box .system-class-icon {
+.system-class-show .show-box .system-class-icon img {
   float: left;
   width: 45px;
   height: 45px;

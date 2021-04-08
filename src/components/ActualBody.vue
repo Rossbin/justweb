@@ -326,7 +326,7 @@ export default {
           // console.log(response.data);
           this.course_list = response.data.results;
           this.course_total = response.data.count;
-          console.log(this.course_list);
+          // console.log(this.course_list);
         })
         .catch(() => {
           this.$message({
