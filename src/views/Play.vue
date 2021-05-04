@@ -536,7 +536,7 @@ li {
 
 
 .video-hight{
-  padding-right: 60px;
-  padding-left: 60px;
+  padding-right: 120px;
+  padding-left: 120px;
 }
 </style>

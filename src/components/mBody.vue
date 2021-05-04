@@ -332,7 +332,7 @@ export default {
         })
         .then((response) => {
           // console.log(response.data);
-          this.course_list = response.data;
+          this.course_list = response.data.results;
           // console.log("返回的课程", this.course_list);
         })
         .catch(() => {
@@ -347,6 +347,7 @@ export default {
       let filters = {
         ordering: this.filter.ordering, // 排序按popular
         course_category: "102",
+
       };
 
       // 获取课程列表信息
@@ -355,7 +356,7 @@ export default {
           params: filters,
         })
         .then((response) => {
-          this.college_computer = response.data;
+          this.college_computer = response.data.results;
           // console.log("计算机返回的课程", this.college_computer);
         })
         .catch(() => {
@@ -376,7 +377,7 @@ export default {
           params: filters,
         })
         .then((response) => {
-          this.college_language = response.data;
+          this.college_language = response.data.results;
           // console.log("计算机返回的课程", this.college_language);
         })
         .catch(() => {
@@ -397,7 +398,7 @@ export default {
           params: filters,
         })
         .then((response) => {
-          this.college_engineer = response.data;
+          this.college_engineer = response.data.results;
           // console.log("计算机返回的课程", this.college_engineer);
         })
         .catch(() => {
@@ -418,7 +419,7 @@ export default {
           params: filters,
         })
         .then((response) => {
-          this.college_science = response.data;
+          this.college_science = response.data.results;
           // console.log("计算机返回的课程", this.college_science);
         })
         .catch(() => {

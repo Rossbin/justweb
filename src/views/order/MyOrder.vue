@@ -16,12 +16,19 @@
       >
         <li class="col-md-6">
           <div class="order_li">
-            <div class="order_div">
+            
+              <router-link 
+              :to="'/base-course/detail/' + item.order_courses[0].course.id"
+              style="text-decoration: none"
+              class="order_div"
+              >
               <img :src="item.order_courses[0].course.course_img" alt="" />
 
-              <span>{{ item.order_courses[0].course.name }}</span>
+              <span class="span_h">{{ item.order_courses[0].course.name }}</span>
               <span class="span_p">订单号：{{ item.out_trade_no }}</span>
-            </div>
+
+              </router-link>
+           
           </div>
         </li>
         <li class="col-md-2">{{ item.updated_time }}</li>
@@ -202,13 +209,19 @@ export default {
 
 .order_div > span {
   float: right;
-  font-size: 14px;
-  font-weight: 200;
-
   margin-right: 15px;
   font-size: 20px;
   font-weight: 800;
   color: #000;
+}
+
+.order_div > .span_h{
+  display: inline-block;
+  width: 250px;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 10px;
+  line-height: 24px;
 }
 
 .order_div > .span_p {

@@ -62,32 +62,31 @@
           @mouseenter="enter()"
           @mouseleave="leave()"
         >
-        <div class="absolute">
-          <el-row :gutter="20">
-            <el-col :span="3" class="col-3">
-              <span class="title">课程分类:</span>
-            </el-col>
-            <el-col :span="22" style="padding-left: 0px">
-              <ul>
-                <li
-                  :class="filter.course_category == 0 ? 'this' : ''"
-                  @click="filter.course_category = 0"
-                >
-                  不限
-                </li>
-                <li
-                  :class="filter.course_category == category.id ? 'this' : ''"
-                  v-for="category in category_list"
-                  @click="filter.course_category = category.id"
-                  :key="category.name"
-                >
-                  {{ category.name }}
-                </li>
-              </ul>
-            </el-col>
-          </el-row>
-        </div>
-
+          <div class="absolute">
+            <el-row :gutter="20">
+              <el-col :span="3" class="col-3">
+                <span class="title">课程分类:</span>
+              </el-col>
+              <el-col :span="22" style="padding-left: 0px">
+                <ul>
+                  <li
+                    :class="filter.course_category == 0 ? 'this' : ''"
+                    @click="filter.course_category = 0"
+                  >
+                    不限
+                  </li>
+                  <li
+                    :class="filter.course_category == category.id ? 'this' : ''"
+                    v-for="category in category_list"
+                    @click="filter.course_category = category.id"
+                    :key="category.name"
+                  >
+                    {{ category.name }}
+                  </li>
+                </ul>
+              </el-col>
+            </el-row>
+          </div>
         </div>
 
         <div class="ordering">
@@ -147,7 +146,11 @@
           v-for="course in course_list"
           :key="course.name"
         >
-          <router-link :to="'/base-course/detail/' + course.id" target="_blank" class="router-link">
+          <router-link
+            :to="'/base-course/detail/' + course.id"
+            target="_blank"
+            class="router-link"
+          >
             <div class="course-image">
               <img :src="course.course_img" alt="" />
             </div>
@@ -447,7 +450,7 @@ export default {
   clear: both;
 }
 
-.course .cate-list .absolute{
+.course .cate-list .absolute {
   position: absolute;
   width: 1164.16px;
   height: 57px;
@@ -515,7 +518,7 @@ export default {
   margin-right: -10px;
   transition: all 0.7s ease;
   position: absolute;
-  width: 1273.750px;
+  width: 1273.75px;
   overflow: hidden;
   z-index: 5;
 }
@@ -686,7 +689,6 @@ export default {
   width: 423px;
   height: 210px;
   margin-right: 30px;
-  
 }
 
 .course .course-item .router-link .course-image img {
@@ -695,13 +697,17 @@ export default {
   max-height: 210px;
   border-radius: 8px;
 }
+.course .course-item .router-link h3 {
+  font-size: 24px !important;
+  margin-top: 20px !important;
+  margin-bottom: 10px !important;
+}
 
 .course .course-item .course-info {
   float: left;
   width: 596px;
-  
 }
-.course-info .router-link{
+.course-info .router-link {
   text-decoration: none;
 }
 
@@ -736,6 +742,9 @@ export default {
 
 .course-item .course-info .teather-info span {
   float: right;
+}
+.course-item .section-list{
+  padding-left: 0px !important;
 }
 
 .course-item .section-list::after {

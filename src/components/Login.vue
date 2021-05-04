@@ -279,14 +279,14 @@ export default {
   color: darkgrey;
   user-select: none;
   cursor: pointer;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 2px solid #e9e9e9;
 }
 
 .nav > span.active {
   color: #ffc210;
   border-bottom: 2px solid #ffc210;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
 }
 
 .el-input,

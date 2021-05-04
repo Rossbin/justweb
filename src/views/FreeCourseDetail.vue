@@ -180,7 +180,7 @@
                 v-for="(item, index) in comment_port"
                 :key="index"
               >
-                <div v-if="item.comment == ''"></div>
+                <div v-if="!item.comment"></div>
                 <el-col v-else :span="20" :offset="2">
                   <el-card
                     class="box-card"
